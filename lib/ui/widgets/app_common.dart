@@ -105,10 +105,12 @@ class CustomProgressIndicatorM extends StatelessWidget {
 
 class SearchWidget extends StatelessWidget {
   final TextEditingController search;
+  final Function(String? text)? onChange;
 
   const SearchWidget({
     super.key,
     required this.search,
+    this.onChange
   });
 
   @override
@@ -121,6 +123,7 @@ class SearchWidget extends StatelessWidget {
           border: Border.all(color: AppTheme.secondColor)),
       child: TextField(
         controller: search,
+        onChanged: onChange,
         decoration:   InputDecoration(
           hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: AppTheme.grey

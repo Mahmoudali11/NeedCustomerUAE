@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:need/bl/blocs/accounts/account_cubit.dart';
 import 'package:need/bl/blocs/theme/app_theme_cubit.dart';
+import 'package:need/data_service/local/pref_manager.dart';
+import 'package:need/ui/views/accounts/login.dart';
 import 'package:need/ui/views/accounts/profile.dart';
 import 'package:need/ui/views/booking/my_booking.dart';
 import 'package:need/ui/views/home/home.dart';
 import 'package:need/ui/views/service/services_main.dart';
 import 'package:need/ui/widgets/c_app_bar.dart';
+ import '../../generated/l10n.dart';
+import '../../utils/navigations.dart';
 
-import '../../generated/l10n.dart';
 
 class AppNavBar extends StatefulWidget {
   const AppNavBar({super.key});
@@ -38,6 +41,8 @@ class _AppNavBarState extends State<AppNavBar> {
   @override
   void initState() {
     accountCubit = BlocProvider.of<AccountCubit>(context);
+    accountCubit.getUserDetails();
+
     items = const [
       HomeWidget(),
       ServiceCategory(),
@@ -70,7 +75,16 @@ class _AppNavBarState extends State<AppNavBar> {
                   onPressed: () {
                     accountCubit.canEditEvent();
                   },
-                )
+                ),
+          IconButton(onPressed: (){
+
+
+                PrefManager.removeValue(PrefManager.userDetails);
+                NavManager(context).navPushRep(const LoginScreen());
+
+          }, icon: Icon(Icons.exit_to_app))
+
+
               ]
             : null,
       ),

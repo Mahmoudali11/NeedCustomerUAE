@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:need/bl/blocs/service/service_cubit.dart';
 import 'package:need/bl/blocs/theme/app_theme_cubit.dart';
 import 'package:need/ui/views/paymnet/payment_status.dart';
 import 'package:need/ui/widgets/c_app_bar.dart';
@@ -6,7 +8,9 @@ import 'package:need/ui/widgets/common.dart';
 import 'package:need/ui/widgets/custom_buttons.dart';
 import 'package:need/utils/navigations.dart';
 
+import '../../../constans/requst_status.dart';
 import '../../../generated/l10n.dart';
+import '../../widgets/show_custom.dart';
 
 class PaymentSelection extends StatefulWidget {
   const PaymentSelection({super.key});
@@ -34,8 +38,8 @@ class _PaymentSelectionState extends State<PaymentSelection> {
             Row(
               children: [
                 Radio(
-                    value: PaymentOption.cash ,
-                    groupValue:pO ,
+                    value: PaymentOption.cash,
+                    groupValue: pO,
                     onChanged: onSelectPayWay),
                 Text(
                   S.of(context).cashOnDelivery,
@@ -47,7 +51,7 @@ class _PaymentSelectionState extends State<PaymentSelection> {
               children: [
                 Radio(
                     value: PaymentOption.paymentLink,
-                    groupValue:pO,
+                    groupValue: pO,
                     onChanged: onSelectPayWay),
                 Text(
                   S.of(context).paymentLink,
@@ -58,7 +62,7 @@ class _PaymentSelectionState extends State<PaymentSelection> {
             Row(
               children: [
                 Radio(
-                    value:  PaymentOption.byCard ,
+                    value: PaymentOption.byCard,
                     groupValue: pO,
                     onChanged: onSelectPayWay),
                 Text(
@@ -67,12 +71,36 @@ class _PaymentSelectionState extends State<PaymentSelection> {
                 )
               ],
             ),
-           const  VerticalSpace(spaceType: SpaceType.l),
-            MainButton(name: "Done",
-            action: (){
-              
-              NavManager(context).navPush(const PaymentStatus());
-            },)
+            BlocListener<ServiceCubit, ServiceState>(
+                listenWhen: (o, n) =>
+                    n.latestServiceE == LatestServiceE.bookService,
+                listener: (ctx, state) {
+                  if (state.reqStatus == ReqStatus.success) {
+                    NavManager(context).navPush(const PaymentStatus());
+                    ShowCustom(context)
+                        .showSnack(S.of(context).successfulResponse);
+                  } else if (state.reqStatus == ReqStatus.fail) {
+                    ShowCustom(context).showSnack(
+                        S.of(context).operationFailed +
+                            (state.errorMessage ?? ""));
+                  }
+                },
+                child: Container()),
+            const VerticalSpace(spaceType: SpaceType.l),
+            BlocBuilder<ServiceCubit, ServiceState>(
+              builder: (context, state) {
+                return state.reqStatus!=ReqStatus.inProgress? MainButton(
+                  name: S.of(context).done,
+                  action: () {
+           var servCuibit=         BlocProvider.of<ServiceCubit>(context);
+                    if(servCuibit.saveEnquiryReq!=null){
+                    servCuibit.saveEnquiry(servCuibit.saveEnquiryReq!);
+
+                  }
+                  },
+                ):const CustomProgressInd();
+              },
+            )
           ],
         ),
       ),
@@ -80,12 +108,12 @@ class _PaymentSelectionState extends State<PaymentSelection> {
   }
 
   void onSelectPayWay(v) {
-                    if (v != null) {
-                     setState(() {
-                       pO = v;
-                     });
-                    }
-                  }
+    if (v != null) {
+      setState(() {
+        pO = v;
+      });
+    }
+  }
 }
 
 enum PaymentOption { cash, paymentLink, byCard }

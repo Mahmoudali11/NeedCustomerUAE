@@ -51,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "country": MessageLookupByLibrary.simpleMessage("Country"),
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("Current Password"),
+        "done": MessageLookupByLibrary.simpleMessage("Done"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot Password"),
@@ -64,9 +65,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "myBooking": MessageLookupByLibrary.simpleMessage("My Booking"),
         "needFacilities":
             MessageLookupByLibrary.simpleMessage("NEED FACILITIES"),
+        "noDataFount": MessageLookupByLibrary.simpleMessage("No Data Fount"),
+        "operationFailed":
+            MessageLookupByLibrary.simpleMessage("Operation Failed"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "passwordAndConfirmMismatch": MessageLookupByLibrary.simpleMessage(
+            "Password and confirm password are mismatch"),
         "paymentLink": MessageLookupByLibrary.simpleMessage("Payment Link"),
         "paymentStatus": MessageLookupByLibrary.simpleMessage("Payment Status"),
+        "pleasAddRequiredField":
+            MessageLookupByLibrary.simpleMessage("Pleas Add required field"),
+        "pressOnEditButton":
+            MessageLookupByLibrary.simpleMessage("Press on edit button"),
         "proceed": MessageLookupByLibrary.simpleMessage("Proceed"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
@@ -82,11 +92,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "services": MessageLookupByLibrary.simpleMessage("Services"),
         "showProfile": MessageLookupByLibrary.simpleMessage("Show Profile"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
+        "somethingError":
+            MessageLookupByLibrary.simpleMessage("Something error"),
         "subServices": MessageLookupByLibrary.simpleMessage("Sub Services"),
+        "successfulResponse":
+            MessageLookupByLibrary.simpleMessage("Successful response"),
         "techniciansAtDoorstep":
             MessageLookupByLibrary.simpleMessage("Technicians at doorstep"),
         "thanksForBookingService": MessageLookupByLibrary.simpleMessage(
             "Thanks for booking service with our team will contact you soon"),
+        "thisFieldRequired":
+            MessageLookupByLibrary.simpleMessage("This field required"),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
         "updatePassword":
             MessageLookupByLibrary.simpleMessage("Update Password"),

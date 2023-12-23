@@ -15,6 +15,7 @@ class MyBooking extends StatelessWidget {
           5,
           (index) => BookingInfo(
                 textTheme: textTheme,
+                req: null,
                 onTap: () {
                   NavManager(context).navPush(const BookSummery());
                 },

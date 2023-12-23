@@ -42,7 +42,7 @@ class HorizontalSpace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var h=MediaQuery.sizeOf(context).height;
+    var h=MediaQuery.sizeOf(context).width;
     var div=1;
     if(spaceType==SpaceType.el){
       div=9;
@@ -58,5 +58,15 @@ class HorizontalSpace extends StatelessWidget {
     }
 
     return SizedBox(width:h /div,);
+  }
+}
+class CustomProgressInd extends StatelessWidget {
+  const CustomProgressInd({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: CircularProgressIndicator(),);
   }
 }

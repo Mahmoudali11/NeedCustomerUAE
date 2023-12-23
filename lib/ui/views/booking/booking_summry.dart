@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:need/bl/blocs/service/service_cubit.dart';
 import 'package:need/bl/blocs/theme/app_theme_cubit.dart';
 import 'package:need/ui/views/home/home.dart';
 import 'package:need/ui/views/paymnet/payment_selection.dart';
@@ -24,6 +26,7 @@ class BookSummery extends StatelessWidget {
         child: Column(
           children: [
             BookingInfo(
+              req: BlocProvider.of<ServiceCubit>(context).saveEnquiryReq,
               textTheme: textTheme,showDetails: true,
             ),
             const VerticalSpace(spaceType: SpaceType.m),

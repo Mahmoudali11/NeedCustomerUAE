@@ -18,6 +18,10 @@ class NavManager {
     });
     Navigator.of(context).pushReplacement(route);
   }
+  navPushNameRep(String screen) {
+
+    Navigator.of(context).pushReplacementNamed(screen);
+  }
   popCurrent() {
     Navigator.of(context).pop();
   }

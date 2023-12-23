@@ -13,6 +13,7 @@ class CustomFormField extends StatelessWidget {
   final String? errorMessage;
   final String? hint;
   final VoidCallback? onTap;
+  final bool? tapOnIconOnly;
 
   const CustomFormField(
       {Key? key,
@@ -25,16 +26,13 @@ class CustomFormField extends StatelessWidget {
       this.errorMessage,
       this.onTap,
       this.widget,
-      this.maxLines})
+      this.maxLines, this.tapOnIconOnly})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: AppTheme.paddingMarginM.copyWith(
-
-            bottom: 9
-        ),
+        margin: AppTheme.paddingMarginM.copyWith(bottom: 9),
         child: TextFormField(
             style: Theme.of(context).textTheme.bodyMedium,
             keyboardType: inputType,
@@ -46,7 +44,7 @@ class CustomFormField extends StatelessWidget {
               }
               return errorMessage;
             },
-            onTap: onTap,
+            onTap: tapOnIconOnly==true?null: onTap,
             controller: controller,
             cursorColor: AppTheme.mainColor,
             decoration: InputDecoration(
@@ -63,9 +61,12 @@ class CustomFormField extends StatelessWidget {
               ),
               suffixIcon: iconData == null
                   ? null
-                  : Icon(
-                      iconData,
-                      color: AppTheme.mainColor,
+                  : GestureDetector(
+                      onTap: tapOnIconOnly==true?onTap: null,
+                      child: Icon(
+                        iconData,
+                        color: AppTheme.mainColor,
+                      ),
                     ),
             )));
   }

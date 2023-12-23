@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:need/bl/blocs/accounts/account_cubit.dart';
 import 'package:need/bl/blocs/language/app_language_cubit.dart';
+import 'package:need/bl/blocs/service/service_cubit.dart';
 import 'package:need/bl/blocs/theme/app_theme_cubit.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:need/bl/blocs/theme/app_theme_state.dart';
@@ -26,13 +27,14 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => AppTheme()),
         BlocProvider(create: (context) => AppLanguageCubit()),
         BlocProvider(create: (context) => AccountCubit()),
+        BlocProvider(create: (context) => ServiceCubit()),
       ],
       child: BlocBuilder<AppTheme,AppThemeState>(
         builder: (context, state) {
           return BlocBuilder<AppLanguageCubit, Locale>(
             builder: (context, state) {
               return MaterialApp(
-                title: 'Need',
+                title: 'Need Customer',
                 debugShowCheckedModeBanner: false,
                 theme: BlocProvider
                     .of<AppTheme>(context)

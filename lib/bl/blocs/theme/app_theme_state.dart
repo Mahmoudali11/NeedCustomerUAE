@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:need/bl/blocs/theme/app_theme_cubit.dart';
 
 class AppThemeState{
   
   
     ThemeData? appTheme = ThemeData(
   useMaterial3: true,
-  textTheme: const TextTheme(
+  scaffoldBackgroundColor: AppTheme.white,
+   textTheme: const TextTheme(
   headlineLarge:
   TextStyle(fontSize: 26, color: Colors.black),
   headlineMedium:

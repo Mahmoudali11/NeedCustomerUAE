@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:need/bl/blocs/accounts/account_cubit.dart';
 import 'package:need/constans/keys.dart';
+import 'package:need/data_service/local/pref_manager.dart';
 import 'package:need/ui/views/accounts/update_password.dart';
 import 'package:need/ui/views/app_navigation.dart';
 import 'package:need/ui/widgets/c_app_bar.dart';
@@ -47,7 +48,11 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
     accountCubit = BlocProvider.of<AccountCubit>(context);
-  }
+
+      username.text=AccountState.userDetails?.userName??'';
+      email.text=AccountState.userDetails?.email??'';
+      phoneNo.text=AccountState.userDetails?.contactNumber??'';
+   }
 
   @override
   void dispose() {
@@ -69,7 +74,7 @@ class _ProfileState extends State<Profile> {
             return GestureDetector(
               onDoubleTap: !accountCubit.state.canEdit
                   ? () {
-                      ShowCustom(context).showSnack("Press on edit button");
+                      ShowCustom(context).showSnack(S.of(context).pressOnEditButton);
                     }
                   : null,
               child: Column(
@@ -94,7 +99,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   CustomFormField(
                     controller: username,
-                    isReadOnly: !accountCubit.state.canEdit,
+                    isReadOnly: true,
                     hint: S.of(context).username,
                     validator: Validator.isValidName,
                     errorMessage:
@@ -102,7 +107,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   CustomFormField(
                       controller: email,
-                      isReadOnly: !accountCubit.state.canEdit,
+                      isReadOnly: true,
                       hint: S.of(context).email,
                       errorMessage:
                           "${S.of(context).email} ${S.of(context).isNotValid}",
@@ -120,7 +125,7 @@ class _ProfileState extends State<Profile> {
                       ),
                       Expanded(
                         child: CustomFormField(
-                            isReadOnly: !accountCubit.state.canEdit,
+                            isReadOnly: true,
                             inputType: TextInputType.phone,
                             errorMessage:
                                 "${S.of(context).contactNo} ${S.of(context).isNotValid}",
@@ -223,10 +228,10 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  void onCountryChange(v) {
+  void onCountryChange( CountryCode? v) {
     if (v != null) {
       country.text = v!.name!;
-      countryCode.text = v!.code!;
+      countryCode.text = v!.dialCode!;
     }
   }
 }

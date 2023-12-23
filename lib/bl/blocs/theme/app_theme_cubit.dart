@@ -49,15 +49,18 @@ class AppTheme extends Cubit<AppThemeState> {
     }
     ThemeData appTheme = ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: AppTheme.mainColor),   textTheme: TextTheme(
+        colorScheme: ColorScheme.fromSeed(seedColor: AppTheme.mainColor,background: AppTheme.white),   textTheme: TextTheme(
           headlineLarge:
               TextStyle(fontSize: _eLargeFS * scale, fontWeight: FontWeight.w700,color: blackColor),
           headlineMedium:
               TextStyle(fontSize: _largeFS * scale,fontWeight: FontWeight.w700, color: blackColor),
           bodyLarge: TextStyle(fontSize: _eMediumFS * scale,fontWeight: FontWeight.w400, color: blackColor),
           bodyMedium: TextStyle(fontSize: _mediumFS * scale,fontWeight: FontWeight.w400, color: blackColor),
+          bodySmall: TextStyle(fontSize: _mediumFS * scale,fontWeight: FontWeight.w400, color: blackColor),
           titleLarge: TextStyle(fontSize: _smallFS * scale,fontWeight: FontWeight.w400, color: blackColor),
-          titleMedium:
+          titleMedium:              TextStyle(fontSize: _eSmallFS * scale,fontWeight: FontWeight.w300, color: blackColor),
+
+      titleSmall:
               TextStyle(fontSize: _eSmallFS * scale,fontWeight: FontWeight.w300, color: blackColor),
         ));
      emit(AppThemeState(appTheme: appTheme));

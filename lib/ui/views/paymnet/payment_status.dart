@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:need/bl/blocs/service/service_cubit.dart';
 import 'package:need/bl/blocs/theme/app_theme_cubit.dart';
 import 'package:need/ui/widgets/c_app_bar.dart';
 import 'package:need/ui/widgets/common.dart';
@@ -30,6 +32,12 @@ class PaymentStatus extends StatelessWidget {
             VerticalSpace(spaceType: SpaceType.es),
             Text(
               "Booking Success",
+              maxLines: 1,
+              style:
+                  textThem.headlineMedium?.copyWith(color: AppTheme.mainColor),
+            ), Text(
+              "RefNo:${BlocProvider.of<ServiceCubit>(context).state.saveInqRes?.ref}",
+              maxLines: 1,
               style:
                   textThem.headlineMedium?.copyWith(color: AppTheme.mainColor),
             ),

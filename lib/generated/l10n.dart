@@ -579,6 +579,96 @@ class S {
       args: [],
     );
   }
+
+  /// `Something error`
+  String get somethingError {
+    return Intl.message(
+      'Something error',
+      name: 'somethingError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Data Fount`
+  String get noDataFount {
+    return Intl.message(
+      'No Data Fount',
+      name: 'noDataFount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pleas Add required field`
+  String get pleasAddRequiredField {
+    return Intl.message(
+      'Pleas Add required field',
+      name: 'pleasAddRequiredField',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This field required`
+  String get thisFieldRequired {
+    return Intl.message(
+      'This field required',
+      name: 'thisFieldRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successful response`
+  String get successfulResponse {
+    return Intl.message(
+      'Successful response',
+      name: 'successfulResponse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Operation Failed`
+  String get operationFailed {
+    return Intl.message(
+      'Operation Failed',
+      name: 'operationFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password and confirm password are mismatch`
+  String get passwordAndConfirmMismatch {
+    return Intl.message(
+      'Password and confirm password are mismatch',
+      name: 'passwordAndConfirmMismatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Done`
+  String get done {
+    return Intl.message(
+      'Done',
+      name: 'done',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Press on edit button`
+  String get pressOnEditButton {
+    return Intl.message(
+      'Press on edit button',
+      name: 'pressOnEditButton',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

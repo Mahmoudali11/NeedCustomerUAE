@@ -81,7 +81,7 @@ class _SubServicesState extends State<SubServices> {
                              SizedBox(
                               width: mq.width*.43,
                               height: mq.height*.05,
-                              child: MainButton(name: "Book Service"
+                              child: MainButton(name: S.of(context).bookService
                                 ,action: (){
                             NavManager(context).navPush(const BookService());
                               },padding:const EdgeInsets.all(0),),

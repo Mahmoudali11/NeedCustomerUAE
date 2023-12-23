@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:need/bl/blocs/service/service_cubit.dart';
 import 'package:need/bl/blocs/theme/app_theme_cubit.dart';
+import 'package:need/bl/modles/save_enquiry_req.dart';
 import 'package:need/ui/views/booking/booking_summry.dart';
 import 'package:need/ui/widgets/common.dart';
 import 'package:need/utils/navigations.dart';
@@ -107,7 +110,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             textTheme: textTheme,
             name: S.of(context).latestBooking,
           ),
-          BookingInfo(textTheme: textTheme,onTap: (){
+          BookingInfo(req:null,textTheme: textTheme,onTap: (){
 
             NavManager(context).navPush(const BookSummery());
           },)
@@ -118,9 +121,10 @@ class _HomeWidgetState extends State<HomeWidget> {
 }
 
 class BookingInfo extends StatelessWidget {
+  final SaveEnquiryReq? req;
   const BookingInfo({
     super.key,
-    required this.textTheme,  this.showDetails=false, this.onTap,
+    required this.textTheme,  this.showDetails=false, this.onTap, required this.req,
   });
   final bool showDetails;
   final TextTheme textTheme;
@@ -128,6 +132,7 @@ class BookingInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _servCu=BlocProvider.of<ServiceCubit>(context);
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: GestureDetector(
@@ -141,7 +146,7 @@ class BookingInfo extends StatelessWidget {
                 decoration: const BoxDecoration(color: AppTheme.secondColor),
                 child: Center(
                   child: Text(
-                    "Electrical/Service",
+                   _servCu.serName??  "Electrical/Service",
                     style:
                         textTheme.bodyMedium?.copyWith(color: AppTheme.white),
                   ),
@@ -156,7 +161,7 @@ class BookingInfo extends StatelessWidget {
                   children: [
                     NameValueText(
                       name: S.of(context).bookingId,
-                      value: "12172",
+                      value:req?.name?? "12172",
                     ),    NameValueText(
                       name: S.of(context).bookingData,
                       value: TextFormatting.formatDate(DateTime.now()),
@@ -174,12 +179,12 @@ class BookingInfo extends StatelessWidget {
                         ),
                         NameValueText(
                           name: S.of(context).bookingLocation,
-                          value: "Abu Dhabi, Electra Street",
+                          value: req?.address??"Abu Dhabi, Electra Street",
                         ),
 
                         NameValueText(
                           name: S.of(context).bookingNotes,
-                          value: "Fixing some plugin problems Fixing some plugin problem",
+                          value: req?.details??"Fixing some plugin problems Fixing some plugin problem",
                         ),
                       ],
                     ):Container(),
