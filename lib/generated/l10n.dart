@@ -669,6 +669,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Booking Success`
+  String get bookingSuccess {
+    return Intl.message(
+      'Booking Success',
+      name: 'bookingSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We sent verification email,please verify first`
+  String get weSentVeri {
+    return Intl.message(
+      'We sent verification email,please verify first',
+      name: 'weSentVeri',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `RefNo`
+  String get refno {
+    return Intl.message(
+      'RefNo',
+      name: 'refno',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Details`
+  String get details {
+    return Intl.message(
+      'Details',
+      name: 'details',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

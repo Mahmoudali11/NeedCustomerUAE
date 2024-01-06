@@ -60,5 +60,9 @@
   "operationFailed": "Operation Failed",
   "passwordAndConfirmMismatch": "Password and confirm password are mismatch",
   "done": "Done",
-  "pressOnEditButton": "Press on edit button"
+  "pressOnEditButton": "Press on edit button",
+  "bookingSuccess": "Booking Success",
+  "weSentVeri": "We sent verification email,please verify first",
+  "refno": "RefNo",
+  "details": "Details"
 }

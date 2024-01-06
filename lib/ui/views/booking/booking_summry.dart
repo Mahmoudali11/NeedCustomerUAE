@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:need/bl/blocs/accounts/account_cubit.dart';
 import 'package:need/bl/blocs/service/service_cubit.dart';
 import 'package:need/bl/blocs/theme/app_theme_cubit.dart';
 import 'package:need/ui/views/home/home.dart';
@@ -12,7 +13,9 @@ import 'package:need/utils/navigations.dart';
 import '../../../generated/l10n.dart';
 
 class BookSummery extends StatelessWidget {
-  const BookSummery({super.key});
+  final bool showProceed;
+
+  const BookSummery({super.key, this.showProceed = true});
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +28,16 @@ class BookSummery extends StatelessWidget {
         padding: AppTheme.paddingMarginL,
         child: Column(
           children: [
-            BookingInfo(
+          !showProceed?SavedBookInfo(
+            req: ServiceState.selectedSavedEnq,
+            textTheme: textTheme,
+            showDetails: true,
+
+
+          )  : BookingInfo(
               req: BlocProvider.of<ServiceCubit>(context).saveEnquiryReq,
-              textTheme: textTheme,showDetails: true,
+              textTheme: textTheme,
+              showDetails: true,
             ),
             const VerticalSpace(spaceType: SpaceType.m),
             Text(
@@ -38,11 +48,12 @@ class BookSummery extends StatelessWidget {
             Text(S.of(context).infoneedae),
             Text(S.of(context).callOrWhatsapp),
             const Text("+971504759695"),
-           const Spacer(),
-            MainButton(name: S.of(context).proceed, action: (){
-NavManager(context).navPush(const
-PaymentSelection());
-            })
+            const Spacer(),
+         showProceed?   MainButton(
+                name: S.of(context).proceed,
+                action: () {
+                  NavManager(context).navPush(const PaymentSelection());
+                }):Container()
           ],
         ),
       ),

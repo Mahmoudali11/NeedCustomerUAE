@@ -3,25 +3,30 @@ part of 'service_cubit.dart';
 enum LatestServiceE {
   getServiceCat,
   searching,
-  bookService
+  bookService,
+  getUserEnquires,
 }
 
 class ServiceState {
   late ReqStatus reqStatus;
   ServiceCategoryM? serviceCategoryM;
   dynamic errorMessage;
+
   LatestServiceE? latestServiceE;
   bool isSearching;
-   List<Datum>? search;
-   SaveInqRes? saveInqRes;
+  List<Datum>? search;
+  SaveInqRes? saveInqRes;
+  AllUserEnquiries? allUserEnquiries;
+  static Data? selectedSavedEnq;
 
   ServiceState(
       {this.latestServiceE,
       this.serviceCategoryM,
       required this.reqStatus,
       this.isSearching = false,
-      this.search ,
-        this.saveInqRes,
+      this.search,
+      this.saveInqRes,
+      this.allUserEnquiries,
       this.errorMessage});
 
   ServiceState copyFrom(
@@ -30,15 +35,17 @@ class ServiceState {
       ServiceCategoryM? serviceCategoryM,
       bool? isSearching,
       List<Datum>? search,
-        SaveInqRes? saveInqRes,
-       LatestServiceE? latestServiceE}) {
+      SaveInqRes? saveInqRes,
+      AllUserEnquiries? allUserEnquiries,
+      LatestServiceE? latestServiceE}) {
     return ServiceState(
         reqStatus: reqStatus,
-         errorMessage: errorMessage,
+        errorMessage: errorMessage,
         saveInqRes: saveInqRes,
+        allUserEnquiries: allUserEnquiries,
         isSearching: isSearching ?? this.isSearching,
         serviceCategoryM: serviceCategoryM ?? this.serviceCategoryM,
-        search: search ,
+        search: search,
         latestServiceE: latestServiceE ?? latestServiceE);
   }
 }

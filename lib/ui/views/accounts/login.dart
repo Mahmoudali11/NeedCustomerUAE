@@ -116,18 +116,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               BlocListener<AccountCubit, AccountState>(
-                listenWhen: (o, n) => n.latestAcE == LatestAcE.login,
-                listener: (ctx, state) {
-                  if (state.reqStatus == ReqStatus.success) {
-                    navigationManager.navPushNameRep("/home");
-                    ShowCustom(context)
-                        .showSnack(S.of(context).successfulResponse);
-                  } else if (state.reqStatus == ReqStatus.fail) {
-                    ShowCustom(context)
-                        .showSnack("${S.of(context).operationFailed} ${state.errorMessage}");
-                  }
-                },
-                child:Container()
+                  listenWhen: (o, n) => n.latestAcE == LatestAcE.login,
+                  listener: (ctx, state) {
+                    if (state.reqStatus == ReqStatus.success) {
+                      navigationManager.navPushNameRep("/home");
+                      ShowCustom(context)
+                          .showSnack(S.of(context).successfulResponse);
+                    } else if (state.reqStatus == ReqStatus.fail) {
+                      ShowCustom(context)
+                          .showSnack("${S.of(context).operationFailed} ${state.errorMessage}");
+                    }
+                  },
+                  child:Container()
               ),
               BlocBuilder<AccountCubit, AccountState>(
                 buildWhen: (o, n) => n.latestAcE == LatestAcE.login,

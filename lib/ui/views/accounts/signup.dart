@@ -181,11 +181,10 @@ class _SignUpState extends State<SignUp> {
                 ),
                 CustomFormField(
                   controller: location,
-                  isReadOnly: true,
+                  tapOnIconOnly: true,
+                  isReadOnly: false,
                   iconData: Icons.add_location_alt,
-                  hint: S
-                      .of(context)
-                      .selectYouLocation,
+                  hint: S.of(context).selectYouLocation,
                   maxLines: 5,
                   onTap: () {
                     showDialog(
@@ -193,10 +192,11 @@ class _SignUpState extends State<SignUp> {
                         builder: (context) {
                           return MapLocationPicker(
                             apiKey: CKeys.mapKey,
+
                             onSuggestionSelected: (v) {
                               if (v?.result.name != null) {
                                 location.text = v!.result.name!;
-                                navManager.popCurrent();
+                                NavManager(context).popCurrent();
                               }
                             },
                           );
@@ -211,7 +211,9 @@ class _SignUpState extends State<SignUp> {
                         ShowCustom(context)
                             .showSnack(S
                             .of(context)
-                            .successfulResponse);
+                            .successfulResponse); 
+                        ShowCustom(context)
+                            .showSnack(S.of(context).weSentVeri);
                       } else if (state.reqStatus == ReqStatus.fail) {
                         ShowCustom(context)
                             .showSnack(S

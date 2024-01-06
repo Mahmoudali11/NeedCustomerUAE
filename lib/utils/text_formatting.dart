@@ -4,7 +4,7 @@ abstract class TextFormatting{
 
   static String formatDate(DateTime? date){
 
-    DateFormat f=DateFormat("yyyy/mM/dd","en");
+    DateFormat f=DateFormat.yMd("en");
 
     if(date!=null){
    return f.format(date);

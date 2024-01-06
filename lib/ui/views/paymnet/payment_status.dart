@@ -31,7 +31,7 @@ class PaymentStatus extends StatelessWidget {
                 color: AppTheme.mainColor,),
             VerticalSpace(spaceType: SpaceType.es),
             Text(
-              "Booking Success",
+              S.of(context).bookingSuccess,
               maxLines: 1,
               style:
                   textThem.headlineMedium?.copyWith(color: AppTheme.mainColor),

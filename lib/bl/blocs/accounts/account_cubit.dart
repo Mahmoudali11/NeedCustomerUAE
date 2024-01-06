@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:need/bl/modles/log_req.dart';
 import 'package:need/bl/modles/logi_res.dart';
 import 'package:need/bl/modles/register_req.dart';
+import 'package:need/bl/modles/reset_pass_email_res.dart';
 import 'package:need/bl/modles/resetpass_Res.dart';
 import 'package:need/bl/modles/resetpass_req.dart';
+import 'package:need/bl/modles/resetpasswordemail_req.dart';
 import 'package:need/constans/requst_status.dart';
 import 'package:need/data_service/remote/acount_rep.dart';
 
@@ -86,6 +88,30 @@ class AccountCubit extends Cubit<AccountState> {
       var res = await _accountRep.resetPassword(req);
 
       if (res is ResetPasswordRes) {
+        emit(state.copyWith(
+            reqStatus: res.success == 1 ? ReqStatus.success : ReqStatus.fail,
+            errorMessage: res.message,
+            latestAcE: LatestAcE.resetPassword));
+      } else {
+        emit(state.copyWith(
+            reqStatus: ReqStatus.fail,
+            latestAcE: LatestAcE.resetPassword,
+            errorMessage: res));
+      }
+    } catch (e) {
+      emit(state.copyWith(
+          reqStatus: ReqStatus.fail,
+          latestAcE: LatestAcE.resetPassword,
+          errorMessage: e.toString()));
+    }
+  }
+  resetPasswordByEmail(ResetPasswordEmailReq req) async {
+    try {
+      emit(state.copyWith(
+          reqStatus: ReqStatus.inProgress, latestAcE: LatestAcE.resetPassword));
+      var res = await _accountRep.resetPasswordEmail(req);
+
+      if (res is ResetPasswordEmailRes) {
         emit(state.copyWith(
             reqStatus: res.success == 1 ? ReqStatus.success : ReqStatus.fail,
             errorMessage: res.message,

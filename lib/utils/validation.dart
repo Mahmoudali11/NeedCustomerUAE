@@ -24,7 +24,7 @@ class Validator {
   }
   static String? isValidPhone(String? phone) {
     // final _phoneRegExpString = r'(^(?:[+0]9)?[0-9]{11}$)';
-    final _phoneRegExpString1 = r'(^\+?05[0-9]{8}$)';
+    final _phoneRegExpString1 = r'(^\+?5[0-9]{8}$)';
     var res= RegExp(_phoneRegExpString1).hasMatch(phone!) ;
    if(res){
     return null;

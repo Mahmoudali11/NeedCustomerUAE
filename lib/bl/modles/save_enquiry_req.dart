@@ -5,6 +5,7 @@ class SaveEnquiryReq {
   String city;
   String address;
   String details;
+  String userId;
 
   SaveEnquiryReq({
     required this.name,
@@ -13,16 +14,10 @@ class SaveEnquiryReq {
     required this.city,
     required this.address,
     required this.details,
+    required this.userId
   });
 
-  factory SaveEnquiryReq.fromJson(Map<String, dynamic> json) => SaveEnquiryReq(
-    name: json["name"],
-    mobile: json["mobile"],
-    service: json["service"],
-    city: json["city"],
-    address: json["address"],
-    details: json["details"],
-  );
+
 
   Map<String, dynamic> toJson() => {
     "name": name,
@@ -31,5 +26,6 @@ class SaveEnquiryReq {
     "city": city,
     "address": address,
     "details": details,
+    "userId":userId
   };
 }

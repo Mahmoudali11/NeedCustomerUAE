@@ -198,6 +198,7 @@ class _BookServiceState extends State<BookService> {
                             service: serviceCubit.selectedServiceId ?? "",
                             city: city.text,
                             address: location.text,
+                            userId: AccountState.userDetails!.userId!,
                             details: bookNotes.text);
                         NavManager(context).navPush(const BookSummery());
                       } else {

@@ -11,6 +11,8 @@ import 'package:need/constans/requst_status.dart';
 import 'package:need/data_service/local/pref_manager.dart';
 import 'package:need/data_service/remote/service_rep.dart';
 
+import '../../modles/all_enquires.dart';
+
 part 'service_state.dart';
 
 class ServiceCubit extends Cubit<ServiceState> {
@@ -85,6 +87,35 @@ class ServiceCubit extends Cubit<ServiceState> {
       emit(state.copyFrom(
           reqStatus: ReqStatus.fail,
           latestServiceE: LatestServiceE.bookService,
+          errorMessage: e.toString()));
+    }
+  }
+
+  getUserEnquires(String userId) async {
+    try {
+      emit(state.copyFrom(
+          reqStatus: ReqStatus.inProgress,
+          latestServiceE: LatestServiceE.getUserEnquires));
+      var res = await _serviceRep.getUserEnquiries(userId);
+
+      if (res is AllUserEnquiries) {
+        emit(state.copyFrom(
+            reqStatus: res.success == 1 ? ReqStatus.success : ReqStatus.fail,
+            errorMessage: res.message,
+             allUserEnquiries: res,
+             latestServiceE: LatestServiceE.getUserEnquires));
+      }
+      else {
+        emit(state.copyFrom(
+            reqStatus: ReqStatus.fail,
+            latestServiceE: LatestServiceE.getUserEnquires,
+            errorMessage: res.toString()
+        ));
+      }
+    } catch (e) {
+      emit(state.copyFrom(
+          reqStatus: ReqStatus.fail,
+          latestServiceE: LatestServiceE.getUserEnquires,
           errorMessage: e.toString()));
     }
   }

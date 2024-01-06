@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:http/http.dart' as http;
+import 'package:need/bl/modles/all_enquires.dart';
 import 'package:need/bl/modles/log_req.dart';
 import 'package:need/bl/modles/save_inq_res.dart';
 import 'package:need/bl/modles/service_cat_m_res.dart';
@@ -72,6 +74,40 @@ class ServiceRep {
           await AccountsRep()
               .login(LoginReq(username: username, password: password));
           await saveEnquiry(model);
+        } else {
+          return serviceRes;
+        }
+      }
+      } else {
+        return null;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future getUserEnquiries(String  userId) async {
+    try {
+      var token = await PrefManager.getValue(PrefManager.token);
+      Map<String, String> head = <String, String>{};
+      head.addAll(NetworkApis.requestHeader);
+      head["Authorization"] = "Bearer $token";
+
+      final url = Uri.parse(NetworkApis.base + "${NetworkApis.getUserEnquires}?userId=$userId");
+      var res = await http.get(url,headers: head);
+      if (res.statusCode == 200) {
+        var dJs = jsonDecode(res.body.replaceFirst("17", ""));
+        var serviceRes = AllUserEnquiries.fromJson(dJs);
+        if (serviceRes.success != 0&& (serviceRes.message is bool &&serviceRes.message)) {
+          return serviceRes;
+        }
+      else if (serviceRes.success == 0&&(serviceRes.message is! bool)) {
+        var username = await PrefManager.getValue(PrefManager.username);
+        var password = await PrefManager.getValue(PrefManager.password);
+        if (username != null && password != null) {
+          await AccountsRep()
+              .login(LoginReq(username: username, password: password));
+          await getUserEnquiries(userId);
         } else {
           return serviceRes;
         }

@@ -5,8 +5,10 @@ import 'package:need/bl/modles/log_req.dart';
 import 'package:need/bl/modles/refresh_token_req.dart';
 import 'package:need/bl/modles/refresh_token_res.dart';
 import 'package:need/bl/modles/register_req.dart';
+import 'package:need/bl/modles/reset_pass_email_res.dart';
 import 'package:need/bl/modles/resetpass_Res.dart';
 import 'package:need/bl/modles/resetpass_req.dart';
+import 'package:need/bl/modles/resetpasswordemail_req.dart';
 import 'package:need/data_service/local/pref_manager.dart';
 
 import '../../bl/modles/logi_res.dart';
@@ -54,6 +56,27 @@ class AccountsRep {
       if (res.statusCode == 200) {
         var dJs = jsonDecode(res.body);
         return RegisterRes.fromJson(dJs);
+
+      } else {
+        return res;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      rethrow;
+    }
+  }
+
+
+  Future resetPasswordEmail(ResetPasswordEmailReq req) async {
+    try {
+      final url = Uri.parse(NetworkApis.base + NetworkApis.resetPassEmail);
+
+      var b = req.toJson();
+      var res = await http.post(url,
+          body: jsonEncode(b), headers: NetworkApis.requestHeader);
+      if (res.statusCode == 200) {
+        var dJs = jsonDecode(res.body);
+        return ResetPasswordEmailRes.fromJson(dJs);
       } else {
         return res;
       }

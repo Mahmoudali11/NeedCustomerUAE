@@ -35,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Booking location"),
         "bookingNotes": MessageLookupByLibrary.simpleMessage("Booking Notes"),
         "bookingStatus": MessageLookupByLibrary.simpleMessage("Booking Status"),
+        "bookingSuccess":
+            MessageLookupByLibrary.simpleMessage("Booking Success"),
         "bookingTime": MessageLookupByLibrary.simpleMessage("Booking Time"),
         "callOrWhatsapp":
             MessageLookupByLibrary.simpleMessage("Call or Whatsapp"),
@@ -51,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "country": MessageLookupByLibrary.simpleMessage("Country"),
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("Current Password"),
+        "details": MessageLookupByLibrary.simpleMessage("Details"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "forgotPassword":
@@ -79,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Press on edit button"),
         "proceed": MessageLookupByLibrary.simpleMessage("Proceed"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "refno": MessageLookupByLibrary.simpleMessage("RefNo"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "reset": MessageLookupByLibrary.simpleMessage("Reset"),
         "resetEmailSent":
@@ -107,6 +111,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "updatePassword":
             MessageLookupByLibrary.simpleMessage("Update Password"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
+        "weSentVeri": MessageLookupByLibrary.simpleMessage(
+            "We sent verification email,please verify first"),
         "whatYouWant": MessageLookupByLibrary.simpleMessage("What you want?")
       };
 }
