@@ -41,6 +41,13 @@ class PaymentStatus extends StatelessWidget {
               style:
                   textThem.headlineMedium?.copyWith(color: AppTheme.mainColor),
             ),
+           const  VerticalSpace(spaceType: SpaceType.m),
+            Text(
+              "Thanks for Choosing Need. Our Technical Team will Contact you Soon",
+               textAlign: TextAlign.center,style:
+                  textThem.bodyLarge?.copyWith(color: AppTheme.mainColor),
+            ),
+
             const VerticalSpace(spaceType: SpaceType.l),
             MainButton(name: S.of(context).bookMoreServices,
             action: (){

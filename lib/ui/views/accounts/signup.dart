@@ -241,6 +241,7 @@ class _SignUpState extends State<SignUp> {
                           _accountCubit.register(RegisterReq(
                               username: username.text,
                               password: password.text,
+                              contactNumber: countryCode.text+phoneNo.text,
                               name: username.text,
                               userType: CKeys.normalUser,
                               email: email.text));
@@ -265,10 +266,10 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  void onCountryChange(v) {
+  void onCountryChange(CountryCode? v) {
     if (v != null) {
       country.text = v!.name!;
-      countryCode.text = v!.code!;
+      countryCode.text = v!.dialCode!;
     }
   }
 }

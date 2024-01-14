@@ -64,5 +64,7 @@
   "bookingSuccess": "Booking Success",
   "weSentVeri": "We sent verification email,please verify first",
   "refno": "RefNo",
-  "details": "Details"
+  "details": "Details",
+  "thisPaymentMethodNotAvailableNow": "This payment method, not available now",
+  "noPreviousBookingTryNewBooking": "No previous booking try new booking"
 }

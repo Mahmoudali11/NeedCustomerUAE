@@ -89,16 +89,24 @@ class _PaymentSelectionState extends State<PaymentSelection> {
             const VerticalSpace(spaceType: SpaceType.l),
             BlocBuilder<ServiceCubit, ServiceState>(
               builder: (context, state) {
-                return state.reqStatus!=ReqStatus.inProgress? MainButton(
-                  name: S.of(context).done,
-                  action: () {
-           var servCuibit=         BlocProvider.of<ServiceCubit>(context);
-                    if(servCuibit.saveEnquiryReq!=null){
-                    servCuibit.saveEnquiry(servCuibit.saveEnquiryReq!);
-
-                  }
-                  },
-                ):const CustomProgressInd();
+                return state.reqStatus != ReqStatus.inProgress
+                    ? MainButton(
+                        name: S.of(context).done,
+                        action: () {
+                          if (pO == PaymentOption.cash) {
+                            var servCuibit =
+                                BlocProvider.of<ServiceCubit>(context);
+                            if (servCuibit.saveEnquiryReq != null) {
+                              servCuibit
+                                  .saveEnquiry(servCuibit.saveEnquiryReq!);
+                            }
+                          } else {
+                            ShowCustom(context).showSnack(
+                                S.of(context).thisPaymentMethodNotAvailableNow);
+                          }
+                        },
+                      )
+                    : const CustomProgressInd();
               },
             )
           ],

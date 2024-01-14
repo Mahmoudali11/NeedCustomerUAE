@@ -42,7 +42,7 @@ class ServiceState {
         reqStatus: reqStatus,
         errorMessage: errorMessage,
         saveInqRes: saveInqRes,
-        allUserEnquiries: allUserEnquiries,
+        allUserEnquiries: allUserEnquiries??this.allUserEnquiries,
         isSearching: isSearching ?? this.isSearching,
         serviceCategoryM: serviceCategoryM ?? this.serviceCategoryM,
         search: search,

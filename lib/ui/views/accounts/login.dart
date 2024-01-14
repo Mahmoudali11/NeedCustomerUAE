@@ -42,7 +42,9 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     PrefManager.getValue(PrefManager.userDetails).then((value) {
       if(value!=null){
-         NavManager(context).navPushName("/home");
+        _accountCubit.getUserDetails();
+         NavManager(context).navPushNameRep("/home");
+
       }
     });
   }

@@ -9,6 +9,7 @@ import 'package:need/bl/modles/reset_pass_email_res.dart';
 import 'package:need/bl/modles/resetpass_Res.dart';
 import 'package:need/bl/modles/resetpass_req.dart';
 import 'package:need/bl/modles/resetpasswordemail_req.dart';
+import 'package:need/constans/keys.dart';
 import 'package:need/data_service/local/pref_manager.dart';
 
 import '../../bl/modles/logi_res.dart';
@@ -110,7 +111,7 @@ class AccountsRep {
           if (username != null && password != null) {
             await AccountsRep()
                 .login(LoginReq(username: username, password: password));
-            await resetPassword(req);
+            return CKeys.tokenEx;
           } else {
             return resetRes;
           }

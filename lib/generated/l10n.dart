@@ -709,6 +709,26 @@ class S {
       args: [],
     );
   }
+
+  /// `This payment method, not available now`
+  String get thisPaymentMethodNotAvailableNow {
+    return Intl.message(
+      'This payment method, not available now',
+      name: 'thisPaymentMethodNotAvailableNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No previous booking try new booking`
+  String get noPreviousBookingTryNewBooking {
+    return Intl.message(
+      'No previous booking try new booking',
+      name: 'noPreviousBookingTryNewBooking',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

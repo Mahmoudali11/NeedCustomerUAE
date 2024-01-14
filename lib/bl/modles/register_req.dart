@@ -4,12 +4,14 @@ class RegisterReq {
   String name;
   int userType;
   String email;
+  String contactNumber;
 
   RegisterReq({
     required this.username,
     required this.password,
     required this.name,
     required this.userType,
+    required this.contactNumber,
     required this.email,
   });
 
@@ -19,6 +21,7 @@ class RegisterReq {
     name: json["Name"],
     userType: json["UserType"],
     email: json["Email"],
+    contactNumber: json["ContactNumber"]
   );
 
   Map<String, dynamic> toJson() => {
@@ -27,5 +30,6 @@ class RegisterReq {
     "Name": name,
     "UserType": userType,
     "Email": email,
+    "ContactNumber":contactNumber
   };
 }

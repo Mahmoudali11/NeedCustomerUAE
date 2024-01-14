@@ -5,11 +5,13 @@ import 'package:need/bl/blocs/service/service_cubit.dart';
 import 'package:need/bl/blocs/theme/app_theme_cubit.dart';
 import 'package:need/bl/modles/all_enquires.dart';
 import 'package:need/bl/modles/save_enquiry_req.dart';
+import 'package:need/constans/requst_status.dart';
 import 'package:need/ui/views/booking/booking_summry.dart';
 import 'package:need/ui/widgets/common.dart';
 import 'package:need/utils/navigations.dart';
 import 'package:need/utils/text_formatting.dart';
 
+import '../../../bl/blocs/accounts/account_cubit.dart';
 import '../../../generated/l10n.dart';
 import '../../widgets/app_common.dart';
 
@@ -22,11 +24,14 @@ class HomeWidget extends StatefulWidget {
 
 class _HomeWidgetState extends State<HomeWidget> {
   TextEditingController search = TextEditingController();
+  late ServiceCubit serviceCubit;
 
   @override
   void initState() {
-    // TODO: implement initState
-
+    serviceCubit = BlocProvider.of<ServiceCubit>(context);
+    if (serviceCubit.state.allUserEnquiries == null) {
+      serviceCubit.getUserEnquires(AccountState.userDetails!.userId!);
+    }
     super.initState();
   }
 
@@ -114,11 +119,28 @@ class _HomeWidgetState extends State<HomeWidget> {
             textTheme: textTheme,
             name: S.of(context).latestBooking,
           ),
-          BookingInfo(
-            req: null,
-            textTheme: textTheme,
-            onTap: () {
-              NavManager(context).navPush(const BookSummery());
+          BlocBuilder<ServiceCubit, ServiceState>(
+            buildWhen: (o,n)=>n.latestServiceE==LatestServiceE.getUserEnquires,
+            builder: (context, state) {
+              if(state.reqStatus==ReqStatus.inProgress){
+                return const CustomProgressInd();
+              }
+              else if(state.reqStatus==ReqStatus.fail){
+               return Center(child: Text("${S.of(context).somethingError} ${state.errorMessage}",) );
+              }
+              else if(state.allUserEnquiries==null||state.allUserEnquiries?.data==null||state.allUserEnquiries?.data?.length==0){
+                return Center(child: Text(S.of(context).noPreviousBookingTryNewBooking,) );
+               }
+              return SavedBookInfo(
+                showDetails: false,
+                req: state.allUserEnquiries?.data?.last,
+                textTheme: textTheme,
+                onTap: () {
+                  NavManager(context).navPush(const BookSummery(
+                    showProceed: false,
+                  ));
+                },
+              );
             },
           )
         ],
@@ -262,7 +284,7 @@ class SavedBookInfo extends StatelessWidget {
                     NameValueText(
                       name: S.of(context).bookingId,
                       value: req?.id ?? "12172",
-                    ),  
+                    ),
                     NameValueText(
                       name: S.of(context).refno,
                       value: req?.refno ?? "12172",
@@ -281,17 +303,17 @@ class SavedBookInfo extends StatelessWidget {
                             children: [
                               NameValueText(
                                 name: S.of(context).bookingStatus,
-                                value: req?.status=="0"?"No Completed":"Completed"??"Unknown",
+                                value: req?.status == "0"
+                                    ? "No Completed"
+                                    : "Completed" ?? "Unknown",
                               ),
                               NameValueText(
                                 name: S.of(context).bookingLocation,
-                                value:
-                                    req?.address ?? "Unknown",
+                                value: req?.address ?? "Unknown",
                               ),
                               NameValueText(
                                 name: S.of(context).bookingNotes,
-                                value: req?.notes ??
-                                    "Unknown",
+                                value: req?.notes ?? "Unknown",
                               ),
                             ],
                           )

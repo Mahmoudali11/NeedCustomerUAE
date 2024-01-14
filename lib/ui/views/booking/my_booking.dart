@@ -28,7 +28,8 @@ class _MyBookingState extends State<MyBooking> {
     super.initState();
     serviceCubit = BlocProvider.of<ServiceCubit>(context);
     accountCubit = BlocProvider.of<AccountCubit>(context);
-    serviceCubit.getUserEnquires(AccountState.userDetails!.userId!);
+    if(serviceCubit.state.allUserEnquiries==null){
+    serviceCubit.getUserEnquires(AccountState.userDetails!.userId!);}
   }
 
   @override
@@ -69,7 +70,20 @@ class _MyBookingState extends State<MyBooking> {
           }
 
           return Center(
-            child: Text(S.of(context).somethingError),
+            child: GestureDetector(onTap:(){
+              serviceCubit.getUserEnquires(AccountState.userDetails!.userId!);
+
+
+            },child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("${S.of(context).somethingError}:${state.errorMessage}"),
+               const Padding(
+                 padding: EdgeInsets.all(8.0),
+                 child: Icon(Icons.refresh),
+               )
+               ],
+            )),
           );
         },
       ),

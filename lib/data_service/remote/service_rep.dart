@@ -37,8 +37,8 @@ class ServiceRep {
           if (username != null && password != null) {
             await AccountsRep()
                 .login(LoginReq(username: username, password: password));
-            await getServiceCat();
-          } else {
+            return CKeys.tokenEx;
+           } else {
             return null;
           }
         }
@@ -73,13 +73,14 @@ class ServiceRep {
         if (username != null && password != null) {
           await AccountsRep()
               .login(LoginReq(username: username, password: password));
-          await saveEnquiry(model);
+          return CKeys.tokenEx;
         } else {
           return serviceRes;
         }
       }
+      return serviceRes;
       } else {
-        return null;
+        return res.body;
       }
     } catch (e) {
       rethrow;
@@ -107,8 +108,8 @@ class ServiceRep {
         if (username != null && password != null) {
           await AccountsRep()
               .login(LoginReq(username: username, password: password));
-          await getUserEnquiries(userId);
-        } else {
+          return CKeys.tokenEx;
+         } else {
           return serviceRes;
         }
       }

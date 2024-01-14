@@ -8,6 +8,7 @@ import 'package:need/bl/modles/reset_pass_email_res.dart';
 import 'package:need/bl/modles/resetpass_Res.dart';
 import 'package:need/bl/modles/resetpass_req.dart';
 import 'package:need/bl/modles/resetpasswordemail_req.dart';
+import 'package:need/constans/keys.dart';
 import 'package:need/constans/requst_status.dart';
 import 'package:need/data_service/remote/acount_rep.dart';
 
@@ -92,7 +93,10 @@ class AccountCubit extends Cubit<AccountState> {
             reqStatus: res.success == 1 ? ReqStatus.success : ReqStatus.fail,
             errorMessage: res.message,
             latestAcE: LatestAcE.resetPassword));
-      } else {
+      }else if(res ==CKeys.tokenEx){
+        resetPassword(req);
+      }
+      else {
         emit(state.copyWith(
             reqStatus: ReqStatus.fail,
             latestAcE: LatestAcE.resetPassword,

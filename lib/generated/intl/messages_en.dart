@@ -69,6 +69,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "needFacilities":
             MessageLookupByLibrary.simpleMessage("NEED FACILITIES"),
         "noDataFount": MessageLookupByLibrary.simpleMessage("No Data Fount"),
+        "noPreviousBookingTryNewBooking": MessageLookupByLibrary.simpleMessage(
+            "No previous booking try new booking"),
         "operationFailed":
             MessageLookupByLibrary.simpleMessage("Operation Failed"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
@@ -107,6 +109,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Thanks for booking service with our team will contact you soon"),
         "thisFieldRequired":
             MessageLookupByLibrary.simpleMessage("This field required"),
+        "thisPaymentMethodNotAvailableNow":
+            MessageLookupByLibrary.simpleMessage(
+                "This payment method, not available now"),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
         "updatePassword":
             MessageLookupByLibrary.simpleMessage("Update Password"),

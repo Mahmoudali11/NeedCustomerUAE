@@ -7,6 +7,7 @@ import 'package:need/bl/modles/logi_res.dart';
 import 'package:need/bl/modles/save_enquiry_req.dart';
 import 'package:need/bl/modles/save_inq_res.dart';
 import 'package:need/bl/modles/service_cat_m_res.dart';
+import 'package:need/constans/keys.dart';
 import 'package:need/constans/requst_status.dart';
 import 'package:need/data_service/local/pref_manager.dart';
 import 'package:need/data_service/remote/service_rep.dart';
@@ -53,6 +54,9 @@ class ServiceCubit extends Cubit<ServiceState> {
             serviceCategoryM: res,
             latestServiceE: LatestServiceE.getServiceCat));
       }
+      else if(res ==CKeys.tokenEx){
+         getServiceCategory();
+      }
     } catch (e) {
       emit(state.copyFrom(
           reqStatus: ReqStatus.fail,
@@ -75,6 +79,9 @@ class ServiceCubit extends Cubit<ServiceState> {
             errorMessage: res.message,
             saveInqRes: res,
             latestServiceE: LatestServiceE.bookService));
+      }
+      else if(res==CKeys.tokenEx){
+        saveEnquiry(model);
       }
       else {
         emit(state.copyFrom(
@@ -105,7 +112,10 @@ class ServiceCubit extends Cubit<ServiceState> {
              allUserEnquiries: res,
              latestServiceE: LatestServiceE.getUserEnquires));
       }
-      else {
+      else if(res==CKeys.tokenEx){
+        getUserEnquires(userId);
+      }
+      else  {
         emit(state.copyFrom(
             reqStatus: ReqStatus.fail,
             latestServiceE: LatestServiceE.getUserEnquires,

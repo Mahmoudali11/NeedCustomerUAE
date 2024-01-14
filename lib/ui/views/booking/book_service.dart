@@ -53,6 +53,7 @@ class _BookServiceState extends State<BookService> {
   void initState() {
     city.text = address.first;
     serviceCubit = BlocProvider.of<ServiceCubit>(context);
+    phoneNo.text=AccountState.userDetails?.contactNumber??"";
     super.initState();
   }
 
@@ -63,8 +64,7 @@ class _BookServiceState extends State<BookService> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: CustomAppBar(
+       appBar: CustomAppBar(
         title: S.of(context).bookService,
       ),
       body: Container(
