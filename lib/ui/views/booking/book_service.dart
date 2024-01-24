@@ -148,6 +148,8 @@ class _BookServiceState extends State<BookService> {
                   controller: location,
                   tapOnIconOnly: true,
                   isReadOnly: false,
+                  validator: Validator.isValidAddress,
+                  errorMessage:"${S.of(context).bookingLocation} ${S.of(context).isNotValid}",
                   iconData: Icons.add_location_alt,
                   hint: S.of(context).selectYouLocation,
                   maxLines: 5,
@@ -191,19 +193,25 @@ class _BookServiceState extends State<BookService> {
                 MainButton(
                     name: S.of(context).book,
                     action: () {
+                      try{
                       if (fKey.currentState?.validate() == true) {
                         serviceCubit.setSaveReq = SaveEnquiryReq(
+
                             name: AccountState.userDetails?.userName ?? "",
                             mobile: "${countryCode.text}${phoneNo.text}",
                             service: serviceCubit.selectedServiceId ?? "",
                             city: city.text,
                             address: location.text,
                             userId: AccountState.userDetails!.userId!,
-                            details: bookNotes.text);
+                            details: bookNotes.text,
+                            email: AccountState.userDetails!.email!);
                         NavManager(context).navPush(const BookSummery());
                       } else {
                         ShowCustom(context)
                             .showSnack(S.of(context).pleasAddRequiredField);
+                      }}catch(e){
+                        ShowCustom(context)
+                            .showSnack(e.toString());
                       }
                     })
               ],

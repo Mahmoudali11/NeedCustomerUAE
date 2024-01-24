@@ -41,7 +41,7 @@ class _AppNavBarState extends State<AppNavBar> {
   @override
   void initState() {
     accountCubit = BlocProvider.of<AccountCubit>(context);
-    accountCubit.getUserDetails();
+
 
     items = const [
       HomeWidget(),

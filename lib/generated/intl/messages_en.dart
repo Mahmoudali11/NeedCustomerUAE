@@ -79,7 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "paymentLink": MessageLookupByLibrary.simpleMessage("Payment Link"),
         "paymentStatus": MessageLookupByLibrary.simpleMessage("Payment Status"),
         "pleasAddRequiredField":
-            MessageLookupByLibrary.simpleMessage("Pleas Add required field"),
+            MessageLookupByLibrary.simpleMessage("Please add required field"),
         "pressOnEditButton":
             MessageLookupByLibrary.simpleMessage("Press on edit button"),
         "proceed": MessageLookupByLibrary.simpleMessage("Proceed"),

@@ -600,10 +600,10 @@ class S {
     );
   }
 
-  /// `Pleas Add required field`
+  /// `Please add required field`
   String get pleasAddRequiredField {
     return Intl.message(
-      'Pleas Add required field',
+      'Please add required field',
       name: 'pleasAddRequiredField',
       desc: '',
       args: [],

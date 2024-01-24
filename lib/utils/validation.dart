@@ -19,8 +19,8 @@ class Validator {
    }
    return "Not Valid Email";
   }
-  static bool isValidAddress(String address) {
-    return address.length >= 7;
+  static String? isValidAddress(String? address) {
+    return (address?.length ??0) >= 7?null:"Not valid";
   }
   static String? isValidPhone(String? phone) {
     // final _phoneRegExpString = r'(^(?:[+0]9)?[0-9]{11}$)';

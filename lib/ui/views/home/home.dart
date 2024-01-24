@@ -29,9 +29,13 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   void initState() {
     serviceCubit = BlocProvider.of<ServiceCubit>(context);
-    if (serviceCubit.state.allUserEnquiries == null) {
-      serviceCubit.getUserEnquires(AccountState.userDetails!.userId!);
-    }
+    BlocProvider.of<AccountCubit>(context).getUserDetails();
+
+    Future.delayed(const Duration(seconds: 1),(){
+
+         serviceCubit.getUserEnquires(AccountState.userDetails!.userId!);
+
+    });
     super.initState();
   }
 

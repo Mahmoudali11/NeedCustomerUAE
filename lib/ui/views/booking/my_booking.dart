@@ -28,8 +28,7 @@ class _MyBookingState extends State<MyBooking> {
     super.initState();
     serviceCubit = BlocProvider.of<ServiceCubit>(context);
     accountCubit = BlocProvider.of<AccountCubit>(context);
-    if(serviceCubit.state.allUserEnquiries==null){
-    serviceCubit.getUserEnquires(AccountState.userDetails!.userId!);}
+     serviceCubit.getUserEnquires(AccountState.userDetails!.userId!);
   }
 
   @override
@@ -58,7 +57,7 @@ class _MyBookingState extends State<MyBooking> {
               );
             }
             return ListView(
-                children: (enquiries ?? <Data>[])
+                children: (enquiries ?? <Data>[]).reversed
                     .map((e) => GestureDetector(
                           onTap: () {
                             ServiceState.selectedSavedEnq=e;

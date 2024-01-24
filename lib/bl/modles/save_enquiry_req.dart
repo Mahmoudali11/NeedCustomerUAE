@@ -6,6 +6,7 @@ String service;
 String address;
 String details;
 String userId;
+String email;
 
 SaveEnquiryReq({
   required this.name,
@@ -15,17 +16,10 @@ SaveEnquiryReq({
   required this.address,
   required this.details,
   required this.userId,
+  required this.email
 });
 
-factory SaveEnquiryReq.fromJson(Map<String, dynamic> json) => SaveEnquiryReq(
-name: json["name"],
-mobile: json["mobile"],
-city: json["city"],
-service: json["service"],
-address: json["address"],
-details: json["details"],
-userId: json["userId"],
-);
+
 
 Map<String, dynamic> toJson() => {
 "name": name,
@@ -35,5 +29,6 @@ Map<String, dynamic> toJson() => {
 "address": address,
 "details": details,
 "userId": userId,
+"email": email,
 };
 }

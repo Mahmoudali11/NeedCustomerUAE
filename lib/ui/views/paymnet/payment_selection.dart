@@ -76,6 +76,8 @@ class _PaymentSelectionState extends State<PaymentSelection> {
                     n.latestServiceE == LatestServiceE.bookService,
                 listener: (ctx, state) {
                   if (state.reqStatus == ReqStatus.success) {
+                    NavManager(context).navPopNameUntil("/home");
+
                     NavManager(context).navPush(const PaymentStatus());
                     ShowCustom(context)
                         .showSnack(S.of(context).successfulResponse);

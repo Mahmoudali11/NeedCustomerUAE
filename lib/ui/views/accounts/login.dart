@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
      // resizeToAvoidBottomInset: false,
       body: Container(
-        padding: AppTheme.paddingMarginL,
+        padding: AppTheme.paddingMarginL.copyWith(bottom: 5),
         width: double.maxFinite,
         child: Form(
           key: fKey,
