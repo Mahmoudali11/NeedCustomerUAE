@@ -5,6 +5,7 @@ enum LatestServiceE {
   searching,
   bookService,
   getUserEnquires,
+  getOffers,
 }
 
 class ServiceState {
@@ -15,6 +16,7 @@ class ServiceState {
   LatestServiceE? latestServiceE;
   bool isSearching;
   List<Datum>? search;
+  OffersRes? offersRes;
   SaveInqRes? saveInqRes;
   AllUserEnquiries? allUserEnquiries;
   static Data? selectedSavedEnq;
@@ -24,8 +26,10 @@ class ServiceState {
       this.serviceCategoryM,
       required this.reqStatus,
       this.isSearching = false,
+        this.offersRes,
       this.search,
       this.saveInqRes,
+
       this.allUserEnquiries,
       this.errorMessage});
 
@@ -36,12 +40,14 @@ class ServiceState {
       bool? isSearching,
       List<Datum>? search,
       SaveInqRes? saveInqRes,
+        OffersRes? offersRes,
       AllUserEnquiries? allUserEnquiries,
       LatestServiceE? latestServiceE}) {
     return ServiceState(
         reqStatus: reqStatus,
         errorMessage: errorMessage,
         saveInqRes: saveInqRes,
+        offersRes: offersRes??this.offersRes,
         allUserEnquiries: allUserEnquiries??this.allUserEnquiries,
         isSearching: isSearching ?? this.isSearching,
         serviceCategoryM: serviceCategoryM ?? this.serviceCategoryM,

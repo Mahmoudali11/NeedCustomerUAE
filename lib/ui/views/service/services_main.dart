@@ -74,6 +74,7 @@ class _ServiceCategoryState extends State<ServiceCategory> {
                         .map((e) => GestureDetector(
                               onTap: () {
                                 serviceCubit.setServiceId = e.id;
+                                serviceCubit.serServName=e.serviceName;
                                 NavManager(context)
                                     .navPush(const BookService());
                               },
@@ -99,6 +100,7 @@ class _ServiceCategoryState extends State<ServiceCategory> {
                                     Flexible(
                                       child: Text(
                                         e.serviceName,
+                                        maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: textTheme.bodyLarge?.copyWith(
                                             color: AppTheme.secondColor),

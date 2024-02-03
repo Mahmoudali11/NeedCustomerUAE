@@ -66,5 +66,6 @@
   "refno": "RefNo",
   "details": "Details",
   "thisPaymentMethodNotAvailableNow": "This payment method, not available now",
-  "noPreviousBookingTryNewBooking": "No previous booking try new booking"
+  "noPreviousBookingTryNewBooking": "No previous booking try new booking",
+  "facilities": "Facilities"
 }

@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final navigationManager = NavManager(context);
 
     return Scaffold(
-     // resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: false,
       body: Container(
         padding: AppTheme.paddingMarginL.copyWith(bottom: 5),
         width: double.maxFinite,

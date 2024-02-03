@@ -29,7 +29,7 @@ class _AppNavBarState extends State<AppNavBar> {
   void didChangeDependencies() {
     title = [
       S.of(context).home,
-      S.of(context).services,
+      S.of(context).facilities,
       S.of(context).myBooking,
       S.of(context).profile,
     ];

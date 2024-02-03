@@ -4,6 +4,7 @@ import 'dart:ffi';
 import 'package:http/http.dart' as http;
 import 'package:need/bl/modles/all_enquires.dart';
 import 'package:need/bl/modles/log_req.dart';
+import 'package:need/bl/modles/offers_res.dart';
 import 'package:need/bl/modles/save_inq_res.dart';
 import 'package:need/bl/modles/service_cat_m_res.dart';
 import 'package:need/constans/keys.dart';
@@ -113,6 +114,40 @@ class ServiceRep {
           return serviceRes;
         }
       }
+      } else {
+        return null;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+  Future getOffers() async {
+    try {
+      var token = await PrefManager.getValue(PrefManager.token);
+
+      final url = Uri.parse(NetworkApis.base + NetworkApis.getOffers);
+      Map<String, String> head = <String, String>{};
+      head.addAll(NetworkApis.requestHeader);
+      head["Authorization"] = "Bearer $token";
+      var res = await http.get(url, headers:head);
+      if (res.statusCode == 200) {
+        var dJs = jsonDecode(res.body);
+        var serviceRes = OffersRes.fromJson(dJs);
+        if (serviceRes.success != 0) {
+          return serviceRes;
+        }
+        //refresh token make silent login
+        else if (serviceRes.success == 0) {
+          var username = await PrefManager.getValue(PrefManager.username);
+          var password = await PrefManager.getValue(PrefManager.password);
+          if (username != null && password != null) {
+            await AccountsRep()
+                .login(LoginReq(username: username, password: password));
+            return CKeys.tokenEx;
+          } else {
+            return null;
+          }
+        }
       } else {
         return null;
       }

@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:need/bl/blocs/accounts/account_cubit.dart';
 import 'package:need/bl/modles/logi_res.dart';
+import 'package:need/bl/modles/offers_res.dart';
 import 'package:need/bl/modles/save_enquiry_req.dart';
 import 'package:need/bl/modles/save_inq_res.dart';
 import 'package:need/bl/modles/service_cat_m_res.dart';
@@ -147,6 +148,30 @@ class ServiceCubit extends Cubit<ServiceState> {
           latestServiceE: LatestServiceE.searching));
     }
   }
+  getOffers() async {
+    try {
+      emit(state.copyFrom(
+          reqStatus: ReqStatus.inProgress,
+          latestServiceE: LatestServiceE.getOffers));
+      var res = await _serviceRep.getOffers();
+
+      if (res is OffersRes) {
+        emit(state.copyFrom(
+            reqStatus: ReqStatus.success,
+            offersRes: res,
+            latestServiceE: LatestServiceE.getOffers));
+      }
+      else if(res ==CKeys.tokenEx){
+        getOffers();
+      }
+    } catch (e) {
+      emit(state.copyFrom(
+          reqStatus: ReqStatus.fail,
+          latestServiceE: LatestServiceE.getOffers,
+          errorMessage: e.toString()));
+    }
+  }
+
 
 
 }

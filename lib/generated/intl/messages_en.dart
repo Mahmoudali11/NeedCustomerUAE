@@ -56,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "details": MessageLookupByLibrary.simpleMessage("Details"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "facilities": MessageLookupByLibrary.simpleMessage("Facilities"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot Password"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),

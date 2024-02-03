@@ -26,35 +26,37 @@ class BookSummery extends StatelessWidget {
       ),
       body: Container(
         padding: AppTheme.paddingMarginL,
-        child: Column(
-          children: [
-          !showProceed?SavedBookInfo(
-            req: ServiceState.selectedSavedEnq,
-            textTheme: textTheme,
-            showDetails: true,
-
-
-          )  : BookingInfo(
-              req: BlocProvider.of<ServiceCubit>(context).saveEnquiryReq,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+            !showProceed?SavedBookInfo(
+              req: ServiceState.selectedSavedEnq,
               textTheme: textTheme,
               showDetails: true,
-            ),
-            const VerticalSpace(spaceType: SpaceType.m),
-            Text(
-              S.of(context).thanksForBookingService,
-              textAlign: TextAlign.center,
-            ),
-            Text(S.of(context).ifYouNeedMoreDetails),
-            Text(S.of(context).infoneedae),
-            Text(S.of(context).callOrWhatsapp),
-            const Text("+971504759695"),
-            const Spacer(),
-         showProceed?   MainButton(
-                name: S.of(context).proceed,
-                action: () {
-                  NavManager(context).navPush(const PaymentSelection());
-                }):Container()
-          ],
+          
+          
+            )  : BookingInfo(
+                req: BlocProvider.of<ServiceCubit>(context).saveEnquiryReq,
+                textTheme: textTheme,
+                showDetails: true,
+              ),
+              const VerticalSpace(spaceType: SpaceType.m),
+              Text(
+                S.of(context).thanksForBookingService,
+                textAlign: TextAlign.center,
+              ),
+              Text(S.of(context).ifYouNeedMoreDetails),
+              Text(S.of(context).infoneedae),
+              Text(S.of(context).callOrWhatsapp),
+              const Text("+971504759695"),
+           const VerticalSpace(spaceType: SpaceType.es,),
+            showProceed?   MainButton(
+                  name: S.of(context).proceed,
+                  action: () {
+                    NavManager(context).navPush(const PaymentSelection());
+                  }):Container()
+            ],
+          ),
         ),
       ),
     );
