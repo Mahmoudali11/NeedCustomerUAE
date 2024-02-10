@@ -340,7 +340,7 @@ class SavedBookInfo extends StatelessWidget {
                                 name: S.of(context).bookingStatus,
                                 value: req?.status == "0"
                                     ? "No Completed"
-                                    : "Completed" ?? "Unknown",
+                                    : "Paid" ?? "Unknown",
                               ),
                               NameValueText(
                                 name: S.of(context).bookingLocation,

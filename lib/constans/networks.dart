@@ -10,6 +10,7 @@ abstract class NetworkApis{
   static const refreshToken="refresh.php";
   static const getUserEnquires="getUserRequests.php";
   static const getOffers="offers.php";
+  static const updatePayment="updateStatus.php";
   ////request header
 static const requestHeader={
   "Content-Type":"application/json",

@@ -8,6 +8,8 @@ import 'package:need/bl/modles/offers_res.dart';
 import 'package:need/bl/modles/save_enquiry_req.dart';
 import 'package:need/bl/modles/save_inq_res.dart';
 import 'package:need/bl/modles/service_cat_m_res.dart';
+import 'package:need/bl/modles/update_pay_req.dart';
+import 'package:need/bl/modles/update_status_res.dart';
 import 'package:need/constans/keys.dart';
 import 'package:need/constans/requst_status.dart';
 import 'package:need/data_service/local/pref_manager.dart';
@@ -161,13 +163,38 @@ class ServiceCubit extends Cubit<ServiceState> {
             offersRes: res,
             latestServiceE: LatestServiceE.getOffers));
       }
-      else if(res ==CKeys.tokenEx){
+      else if(res == CKeys.tokenEx){
         getOffers();
       }
     } catch (e) {
       emit(state.copyFrom(
           reqStatus: ReqStatus.fail,
           latestServiceE: LatestServiceE.getOffers,
+          errorMessage: e.toString()));
+    }
+  }
+
+
+  Future updateStatus(UpdateStatusReq req) async {
+    try {
+      emit(state.copyFrom(
+          reqStatus: ReqStatus.inProgress,
+          latestServiceE: LatestServiceE.updatePayStatus));
+      var res = await _serviceRep.updateStatus(req);
+
+      if (res is UpdateStatusRes) {
+        emit(state.copyFrom(
+            reqStatus: ReqStatus.success,
+
+             latestServiceE: LatestServiceE.updatePayStatus));
+      }
+      else if(res == CKeys.tokenEx){
+        updateStatus(req);
+      }
+    } catch (e) {
+      emit(state.copyFrom(
+          reqStatus: ReqStatus.fail,
+          latestServiceE: LatestServiceE.updatePayStatus,
           errorMessage: e.toString()));
     }
   }

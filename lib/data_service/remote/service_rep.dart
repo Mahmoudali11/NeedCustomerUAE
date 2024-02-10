@@ -7,6 +7,8 @@ import 'package:need/bl/modles/log_req.dart';
 import 'package:need/bl/modles/offers_res.dart';
 import 'package:need/bl/modles/save_inq_res.dart';
 import 'package:need/bl/modles/service_cat_m_res.dart';
+import 'package:need/bl/modles/update_pay_req.dart';
+import 'package:need/bl/modles/update_status_res.dart';
 import 'package:need/constans/keys.dart';
 import 'package:need/constans/networks.dart';
 import 'package:need/data_service/local/pref_manager.dart';
@@ -95,10 +97,10 @@ class ServiceRep {
       head.addAll(NetworkApis.requestHeader);
       head["Authorization"] = "Bearer $token";
 
-      final url = Uri.parse(NetworkApis.base + "${NetworkApis.getUserEnquires}?userId=$userId");
+      final url = Uri.parse("${NetworkApis.base}${NetworkApis.getUserEnquires}?userId=$userId");
       var res = await http.get(url,headers: head);
       if (res.statusCode == 200) {
-        var dJs = jsonDecode(res.body.replaceFirst("17", ""));
+        var dJs = jsonDecode(res.body);
         var serviceRes = AllUserEnquiries.fromJson(dJs);
         if (serviceRes.success != 0&& (serviceRes.message is bool &&serviceRes.message)) {
           return serviceRes;
@@ -135,6 +137,47 @@ class ServiceRep {
         var serviceRes = OffersRes.fromJson(dJs);
         if (serviceRes.success != 0) {
           return serviceRes;
+        }
+        //refresh token make silent login
+        else if (serviceRes.success == 0) {
+          var username = await PrefManager.getValue(PrefManager.username);
+          var password = await PrefManager.getValue(PrefManager.password);
+          if (username != null && password != null) {
+            await AccountsRep()
+                .login(LoginReq(username: username, password: password));
+            return CKeys.tokenEx;
+          } else {
+            return null;
+          }
+        }
+      } else {
+        return null;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future updateStatus(UpdateStatusReq req) async {
+    try {
+      var token = await PrefManager.getValue(PrefManager.token);
+
+      final url = Uri.parse(NetworkApis.base + NetworkApis.updatePayment);
+      Map<String, String> head = <String, String>{};
+      head.addAll(NetworkApis.requestHeader);
+      head["Authorization"] = "Bearer $token";
+      var res = await http.post(url,
+          body: jsonEncode(req.toJson()),
+          headers:head);
+      if (res.statusCode == 200) {
+        var dJs = jsonDecode(res.body);
+        var serviceRes = UpdateStatusRes.fromJson(dJs);
+        if (serviceRes.success != 0) {
+          return serviceRes;
+        }
+        else if(serviceRes.success==0&&serviceRes.data is List){
+          return serviceRes;
+
         }
         //refresh token make silent login
         else if (serviceRes.success == 0) {

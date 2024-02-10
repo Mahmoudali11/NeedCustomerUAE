@@ -6,6 +6,8 @@ enum LatestServiceE {
   bookService,
   getUserEnquires,
   getOffers,
+  updatePayStatus,
+
 }
 
 class ServiceState {

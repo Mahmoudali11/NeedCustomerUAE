@@ -62,6 +62,6 @@ class UserDetails {
     "UserType": userType,
     "CreatedDate": createdDate,
     "Email": email,
-    "ContactNumber": contactNumber,
+    "ContactNumber": contactNumber?.replaceFirst("+971", ""),
   };
 }

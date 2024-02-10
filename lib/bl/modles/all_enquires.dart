@@ -58,7 +58,7 @@ class Data {
     cellphnumber: json["Cellphnumber"],
     email: json["Email"],
     notes: json["Notes"],
-    creationDate: DateTime.parse(json["CreationDate"]),
+    creationDate: DateTime.tryParse(json["CreationDate"])??DateTime.now(),
     status: json["status"],
     source: json["source"],
     refno: json["refno"],

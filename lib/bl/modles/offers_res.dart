@@ -11,7 +11,7 @@ class OffersRes {
 
   factory OffersRes.fromJson(Map<String, dynamic> json) => OffersRes(
     success: json["success"],
-    data: List<Offers>.from(json["data"].map((x) => Offers.fromJson(x))),
+    data: List<Offers>.from( json["data"]?.map((x) => Offers.fromJson(x))??[]),
     message: json["message"],
   );
 
