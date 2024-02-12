@@ -86,7 +86,7 @@ class BookSummery extends StatelessWidget {
                       }
                       return MainButton(
                           name: "Set To Paid",
-                          action: ServiceState.selectedSavedEnq?.status == "0"
+                          action: ServiceState.selectedSavedEnq?.requestStatus.toLowerCase() != "paid"
                               ? () {
                                   var value=AccountState.userDetails?.userId;
                                     if (value != null &&

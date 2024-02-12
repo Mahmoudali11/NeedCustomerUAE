@@ -173,6 +173,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                 req: state.allUserEnquiries?.data?.last,
                 textTheme: textTheme,
                 onTap: () {
+                  ServiceState.selectedSavedEnq=state.allUserEnquiries?.data?.last;
+
                   NavManager(context).navPush(const BookSummery(
                     showProceed: false,
                   ));
@@ -338,9 +340,7 @@ class SavedBookInfo extends StatelessWidget {
                             children: [
                               NameValueText(
                                 name: S.of(context).bookingStatus,
-                                value: req?.status == "0"
-                                    ? "No Completed"
-                                    : "Paid" ?? "Unknown",
+                                value: req?.requestStatus ?? "Unknown",
                               ),
                               NameValueText(
                                 name: S.of(context).bookingLocation,

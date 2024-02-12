@@ -33,6 +33,7 @@ class Data {
   String refno;
   String city;
   String userId;
+  String requestStatus;
 
   Data({
     required this.id,
@@ -48,6 +49,7 @@ class Data {
     required this.refno,
     required this.city,
     required this.userId,
+    required this.requestStatus
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -64,6 +66,7 @@ class Data {
     refno: json["refno"],
     city: json["city"],
     userId: json["userId"],
+    requestStatus:json["RequestStatus"]
   );
 
 

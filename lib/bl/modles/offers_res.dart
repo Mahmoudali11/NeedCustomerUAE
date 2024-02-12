@@ -1,7 +1,7 @@
 class OffersRes {
   int success;
   List<Offers> data;
-  bool message;
+  dynamic message;
 
   OffersRes({
     required this.success,
