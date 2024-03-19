@@ -59,7 +59,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         width: double.maxFinite,
         child: Column(
           children: [
-
             const VerticalSpace(spaceType: SpaceType.l),
             CustomFormField(
               controller: email,
@@ -78,23 +77,32 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     navigationManager.popCurrent();
 
                     ShowCustom(context).showSnack(S.of(context).resetEmailSent);
-
                   } else if (state.reqStatus == ReqStatus.fail) {
-                    ShowCustom(context)
-                        .showSnack("${S.of(context).operationFailed} ${state.errorMessage}");
+                    ShowCustom(context).showSnack(
+                        "${S.of(context).operationFailed} ${state.errorMessage}");
                   }
                 },
-                child:Container()
-            ),
+                child: Container()),
             const VerticalSpace(
               spaceType: SpaceType.el,
             ),
-            MainButton(
-              name: S.of(context).reset,
-              action: () {
-                _accountCubit.resetPasswordByEmail(ResetPasswordEmailReq(
-                    email: email.text, newPassword: newPassword.text));
-               },
+            BlocBuilder<AccountCubit, AccountState>(
+              buildWhen: (o, n) => n.latestAcE == LatestAcE.resetPassword,
+              builder: (context, state) {
+                return state.reqStatus == ReqStatus.inProgress
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : MainButton(
+                        name: S.of(context).reset,
+                        action: () {
+                          _accountCubit.resetPasswordByEmail(
+                              ResetPasswordEmailReq(
+                                  email: email.text,
+                                  newPassword: newPassword.text));
+                        },
+                      );
+              },
             ),
             const Spacer(),
             Align(

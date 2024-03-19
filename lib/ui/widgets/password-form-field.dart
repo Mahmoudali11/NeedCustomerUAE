@@ -63,6 +63,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
             focusColor: AppTheme.mainColor,
             onPressed: changeVisibility,
             icon: Icon(
+              size: Theme.of(context).textTheme.headlineMedium!.fontSize!,
+
               isSecure ? Icons.visibility_off : Icons.visibility,
               color: AppTheme.mainColor,
               // color: AppTheme.iconColor,

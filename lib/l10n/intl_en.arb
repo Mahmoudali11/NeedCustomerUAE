@@ -67,5 +67,8 @@
   "details": "Details",
   "thisPaymentMethodNotAvailableNow": "This payment method, not available now",
   "noPreviousBookingTryNewBooking": "No previous booking try new booking",
-  "facilities": "Facilities"
+  "facilities": "Facilities",
+  "setToPaid": "Set To Paid",
+  "bookNow": "Book Now",
+  "bookDetails": "Book Details"
 }

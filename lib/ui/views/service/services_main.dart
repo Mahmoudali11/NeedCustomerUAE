@@ -86,9 +86,11 @@ class _ServiceCategoryState extends State<ServiceCategory> {
                                         AppTheme.borderRS),
                                     border:
                                         Border.all(color: AppTheme.mainColor)),
-                                child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20),
                                     child: Row(
                                   mainAxisSize: MainAxisSize.min,
+                                  
                                   children: [
                                     const Icon(
                                       Icons.settings,

@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
           return BlocBuilder<AppLanguageCubit, Locale>(
             builder: (context, state) {
               return MaterialApp(
+                locale: const Locale("en"),
                 title: 'Need Customer',
                 debugShowCheckedModeBanner: false,
                 theme: BlocProvider

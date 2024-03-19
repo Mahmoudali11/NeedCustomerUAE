@@ -16,6 +16,7 @@ import 'package:need/ui/widgets/show_custom.dart';
 import 'package:need/utils/navigations.dart';
 
 import '../../../generated/l10n.dart';
+import '../paymnet/payment_status.dart';
 
 class BookSummery extends StatelessWidget {
   final bool showProceed;
@@ -72,12 +73,43 @@ class BookSummery extends StatelessWidget {
               const VerticalSpace(
                 spaceType: SpaceType.es,
               ),
+              BlocListener<ServiceCubit, ServiceState>(
+                  listenWhen: (o, n) =>
+                  n.latestServiceE == LatestServiceE.bookService,
+                  listener: (ctx, state) {
+                    if (state.reqStatus == ReqStatus.success) {
+                      NavManager(context).navPopNameUntil("/home");
+
+                      NavManager(context).navPush(const PaymentStatus());
+                      ShowCustom(context)
+                          .showSnack(S.of(context).successfulResponse);
+                    } else if (state.reqStatus == ReqStatus.fail) {
+                      ShowCustom(context).showSnack(
+                          S.of(context).operationFailed +
+                              (state.errorMessage ?? ""));
+                    }
+                  },
+                  child: Container()),
               showProceed
-                  ? MainButton(
-                      name: S.of(context).proceed,
-                      action: () {
-                        NavManager(context).navPush(const PaymentSelection());
-                      })
+                  ?   BlocBuilder<ServiceCubit, ServiceState>(
+                builder: (context, state) {
+                  return state.reqStatus != ReqStatus.inProgress
+                      ? MainButton(
+                    name: S.of(context).bookNow,
+                    action: () {
+                    //  if (pO == PaymentOption.cash) {
+                        var servCuibit =
+                        BlocProvider.of<ServiceCubit>(context);
+                        if (servCuibit.saveEnquiryReq != null) {
+                          servCuibit
+                              .saveEnquiry(servCuibit.saveEnquiryReq!);
+
+                      }
+                    },
+                  )
+                      : const CustomProgressInd();
+                },
+              )
                   : BlocBuilder<ServiceCubit,ServiceState>(
                     buildWhen: (o,n)=>n.latestServiceE==LatestServiceE.updatePayStatus,
                     builder: (context,s) {
@@ -85,7 +117,7 @@ class BookSummery extends StatelessWidget {
                         return const Center(child: CustomProgressInd());
                       }
                       return MainButton(
-                          name: "Set To Paid",
+                          name: S.of(context).setToPaid,
                           action: ServiceState.selectedSavedEnq?.requestStatus.toLowerCase() != "paid"
                               ? () {
                                   var value=AccountState.userDetails?.userId;

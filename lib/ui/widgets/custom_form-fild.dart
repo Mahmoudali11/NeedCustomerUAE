@@ -65,6 +65,7 @@ class CustomFormField extends StatelessWidget {
                       onTap: tapOnIconOnly==true?onTap: null,
                       child: Icon(
                         iconData,
+                        size: Theme.of(context).textTheme.headlineMedium!.fontSize!,
                         color: AppTheme.mainColor,
                       ),
                     ),

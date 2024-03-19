@@ -739,6 +739,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Set To Paid`
+  String get setToPaid {
+    return Intl.message(
+      'Set To Paid',
+      name: 'setToPaid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Book Now`
+  String get bookNow {
+    return Intl.message(
+      'Book Now',
+      name: 'bookNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Book Details`
+  String get bookDetails {
+    return Intl.message(
+      'Book Details',
+      name: 'bookDetails',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

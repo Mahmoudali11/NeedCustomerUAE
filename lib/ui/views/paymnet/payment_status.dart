@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:need/bl/blocs/accounts/account_cubit.dart';
 import 'package:need/bl/blocs/service/service_cubit.dart';
 import 'package:need/bl/blocs/theme/app_theme_cubit.dart';
+import 'package:need/ui/views/booking/booking_summry.dart';
 import 'package:need/ui/widgets/c_app_bar.dart';
 import 'package:need/ui/widgets/common.dart';
 import 'package:need/ui/widgets/custom_buttons.dart';
@@ -50,6 +51,20 @@ class PaymentStatus extends StatelessWidget {
             ),
 
             const VerticalSpace(spaceType: SpaceType.l),
+            MainButton(name: S.of(context).bookDetails,
+            action: (){
+
+          final allBooking=    BlocProvider.of<ServiceCubit>(context).state.allUserEnquiries;
+              if(allBooking?.data !=null &&allBooking!.data!.isNotEmpty){
+
+
+                ServiceState.selectedSavedEnq=allBooking!.data!.last;
+                NavManager(context).navPopNameUntil("/home");
+
+                NavManager(context).navPush(const BookSummery(showProceed: false,));
+              }
+            },),
+            
             MainButton(name: S.of(context).bookMoreServices,
             action: (){
               BlocProvider.of<ServiceCubit>(context).getUserEnquires(AccountState.userDetails?.userId??"");

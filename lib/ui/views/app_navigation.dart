@@ -93,14 +93,18 @@ class _AppNavBarState extends State<AppNavBar> {
           padding: AppTheme.paddingMarginL.copyWith(top: 15),
           child: items[currentIndex]),
       bottomNavigationBar: BottomNavigationBar(
-        iconSize: 25,
         currentIndex: currentIndex,
         selectedItemColor: AppTheme.secondColor,
+        selectedFontSize:Theme.of(context).textTheme.bodyMedium!.fontSize!,
+
+        iconSize: Theme.of(context).textTheme.headlineSmall!.fontSize!,
+
         onTap: onTapItem,
         items: [
           BottomNavigationBarItem(
               label: title[currentIndex],
               icon: Icon(
+
                 Icons.home,
                 color: currentIndex == 0 ? AppTheme.mainColor : AppTheme.grey,
               )),

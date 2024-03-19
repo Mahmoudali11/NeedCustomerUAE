@@ -43,12 +43,15 @@ class AppTheme extends Cubit<AppThemeState> {
       ));
 
   updateTheme(BuildContext context) {
-    double scale = (MediaQuery.sizeOf(context).width / 360) * .91;
+    final width=MediaQuery.sizeOf(context).width;
+    double scale = (width / 360) * (width>500? 0.67:.91) ;
+
     if(scale<=0){
       scale=.9;
     }
     ThemeData appTheme = ThemeData(
         useMaterial3: true,
+        iconTheme: IconThemeData(size: _eLargeFS.toDouble()*scale*2),
         colorScheme: ColorScheme.fromSeed(seedColor: AppTheme.mainColor,background: AppTheme.white),   textTheme: TextTheme(
           headlineLarge:
               TextStyle(fontSize: _eLargeFS * scale, fontWeight: FontWeight.w700,color: blackColor),
@@ -57,8 +60,8 @@ class AppTheme extends Cubit<AppThemeState> {
           bodyLarge: TextStyle(fontSize: _eMediumFS * scale,fontWeight: FontWeight.w400, color: blackColor),
           bodyMedium: TextStyle(fontSize: _mediumFS * scale,fontWeight: FontWeight.w400, color: blackColor),
           bodySmall: TextStyle(fontSize: _mediumFS * scale,fontWeight: FontWeight.w400, color: blackColor),
-          titleLarge: TextStyle(fontSize: _smallFS * scale,fontWeight: FontWeight.w400, color: blackColor),
-          titleMedium:              TextStyle(fontSize: _eSmallFS * scale,fontWeight: FontWeight.w300, color: blackColor),
+          titleLarge: TextStyle(fontSize: _eMediumFS * scale,fontWeight: FontWeight.w400, color: blackColor),
+          titleMedium:              TextStyle(fontSize: _smallFS * scale,fontWeight: FontWeight.w300, color: blackColor),
 
       titleSmall:
               TextStyle(fontSize: _eSmallFS * scale,fontWeight: FontWeight.w300, color: blackColor),
