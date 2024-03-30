@@ -35,4 +35,11 @@ class NavManager {
 
     Navigator.of(context).popUntil(ModalRoute.withName(name));
   }
+  navPushAndRemoveUntil(Widget name) {
+
+    MaterialPageRoute route = MaterialPageRoute(builder: (context) {
+      return name;
+    });
+    Navigator.of(context).pushAndRemoveUntil(route,(e)=>false);
+  }
 }

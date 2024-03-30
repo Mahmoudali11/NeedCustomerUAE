@@ -25,51 +25,63 @@ class PaymentStatus extends StatelessWidget {
         padding: AppTheme.paddingMarginL,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-
           children: [
-            Icon(Icons.check_circle,
-
-            weight: 200,size: 120,
-                color: AppTheme.mainColor,),
+            Icon(
+              Icons.check_circle,
+              weight: 200,
+              size: 120,
+              color: AppTheme.mainColor,
+            ),
             VerticalSpace(spaceType: SpaceType.es),
             Text(
               S.of(context).bookingSuccess,
               maxLines: 1,
               style:
                   textThem.headlineMedium?.copyWith(color: AppTheme.mainColor),
-            ), Text(
+            ),
+            Text(
               "RefNo:${BlocProvider.of<ServiceCubit>(context).state.saveInqRes?.ref}",
               maxLines: 1,
               style:
                   textThem.headlineMedium?.copyWith(color: AppTheme.mainColor),
             ),
-           const  VerticalSpace(spaceType: SpaceType.m),
+            const VerticalSpace(spaceType: SpaceType.m),
             Text(
               "Thanks for Choosing Need. Our Technical Team will Contact you Soon",
-               textAlign: TextAlign.center,style:
-                  textThem.bodyLarge?.copyWith(color: AppTheme.mainColor),
+              textAlign: TextAlign.center,
+              style: textThem.bodyLarge?.copyWith(color: AppTheme.mainColor),
             ),
-
             const VerticalSpace(spaceType: SpaceType.l),
-            MainButton(name: S.of(context).bookDetails,
-            action: (){
+            MainButton(
+              name: S.of(context).bookDetails,
+              action: () {
+                var accout = AccountState.userDetails;
+                BlocProvider.of<ServiceCubit>(context)
+                    .getUserEnquires(accout!.userId)
+                    .then((value) {
+                  final allBooking = BlocProvider.of<ServiceCubit>(context)
+                      .state
+                      .allUserEnquiries;
+                  if (allBooking?.data != null &&
+                      allBooking!.data!.isNotEmpty) {
+                    ServiceState.selectedSavedEnq = allBooking!.data!.last;
+                    NavManager(context).navPopNameUntil("/home");
 
-          final allBooking=    BlocProvider.of<ServiceCubit>(context).state.allUserEnquiries;
-              if(allBooking?.data !=null &&allBooking!.data!.isNotEmpty){
-
-
-                ServiceState.selectedSavedEnq=allBooking!.data!.last;
+                    NavManager(context).navPush(const BookSummery(
+                      showProceed: false,
+                    ));
+                  }
+                });
+              },
+            ),
+            MainButton(
+              name: S.of(context).bookMoreServices,
+              action: () {
+                BlocProvider.of<ServiceCubit>(context)
+                    .getUserEnquires(AccountState.userDetails?.userId ?? "");
                 NavManager(context).navPopNameUntil("/home");
-
-                NavManager(context).navPush(const BookSummery(showProceed: false,));
-              }
-            },),
-            
-            MainButton(name: S.of(context).bookMoreServices,
-            action: (){
-              BlocProvider.of<ServiceCubit>(context).getUserEnquires(AccountState.userDetails?.userId??"");
-              NavManager(context).navPopNameUntil("/home");
-            },)
+              },
+            )
           ],
         ),
       ),

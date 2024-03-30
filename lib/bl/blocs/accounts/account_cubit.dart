@@ -80,8 +80,6 @@ class AccountCubit extends Cubit<AccountState> {
     }
   }
 
-
-
   resetPassword(ResetPassword req) async {
     try {
       emit(state.copyWith(
@@ -93,10 +91,9 @@ class AccountCubit extends Cubit<AccountState> {
             reqStatus: res.success == 1 ? ReqStatus.success : ReqStatus.fail,
             errorMessage: res.message,
             latestAcE: LatestAcE.resetPassword));
-      }else if(res ==CKeys.tokenEx){
+      } else if (res == CKeys.tokenEx) {
         resetPassword(req);
-      }
-      else {
+      } else {
         emit(state.copyWith(
             reqStatus: ReqStatus.fail,
             latestAcE: LatestAcE.resetPassword,
@@ -109,6 +106,7 @@ class AccountCubit extends Cubit<AccountState> {
           errorMessage: e.toString()));
     }
   }
+
   resetPasswordByEmail(ResetPasswordEmailReq req) async {
     try {
       emit(state.copyWith(
@@ -133,6 +131,16 @@ class AccountCubit extends Cubit<AccountState> {
           errorMessage: e.toString()));
     }
   }
+
+  Future deleteAccount(String userId) async {
+    try {
+      var res = await _accountRep.deleteAccount(userId);
+      return res;
+    } catch (e) {
+      return e.toString();
+    }
+  }
+
   getUserDetails() {
     PrefManager.getValue(PrefManager.userDetails).then((value) {
       if (value != null) {

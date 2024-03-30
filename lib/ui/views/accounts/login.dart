@@ -41,11 +41,18 @@ class _LoginScreenState extends State<LoginScreen> {
       BlocProvider.of<AppTheme>(context).updateTheme(context);
     });
     PrefManager.getValue(PrefManager.userDetails).then((value) {
-      if(value!=null){
+      if(value!=null) {
         _accountCubit.getUserDetails();
-         NavManager(context).navPushNameRep("/home");
+        AccountState.isGuest=false;
+
+        NavManager(context).navPushNameRep("/home");
 
       }
+      else if (AccountState.isGuest&&value==null){
+        NavManager(context).navPushNameRep("/home");
+        AccountState.isGuest=true;
+      }
+
     });
   }
 
@@ -121,6 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   listenWhen: (o, n) => n.latestAcE == LatestAcE.login,
                   listener: (ctx, state) {
                     if (state.reqStatus == ReqStatus.success) {
+                      AccountState.isGuest=false;
                       navigationManager.navPushNameRep("/home");
                       ShowCustom(context)
                           .showSnack(S.of(context).successfulResponse);

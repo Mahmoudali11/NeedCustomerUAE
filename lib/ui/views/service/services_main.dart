@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:need/bl/blocs/accounts/account_cubit.dart';
 import 'package:need/bl/blocs/service/service_cubit.dart';
 import 'package:need/bl/blocs/theme/app_theme_cubit.dart';
 import 'package:need/bl/modles/service_cat_m_res.dart';
 import 'package:need/constans/requst_status.dart';
+import 'package:need/ui/views/accounts/login.dart';
 import 'package:need/ui/views/booking/book_service.dart';
 import 'package:need/ui/views/service/service_sub.dart';
 import 'package:need/ui/widgets/app_common.dart';
 import 'package:need/ui/widgets/common.dart';
+import 'package:need/ui/widgets/show_custom.dart';
 import 'package:need/utils/navigations.dart';
 
 import '../../../generated/l10n.dart';
@@ -33,7 +36,13 @@ class _ServiceCategoryState extends State<ServiceCategory> {
   @override
   void initState() {
     serviceCubit = BlocProvider.of<ServiceCubit>(context);
-    serviceCubit.getServiceCategory();
+    if(AccountState.isGuest){
+      serviceCubit.getServiceCategoryGuest();
+    }
+    else{
+      serviceCubit.getServiceCategory();
+
+    }
     super.initState();
   }
 
@@ -55,7 +64,7 @@ class _ServiceCategoryState extends State<ServiceCategory> {
                 n.latestServiceE == LatestServiceE.getServiceCat ||
                 n.latestServiceE == LatestServiceE.searching,
             builder: (context, state) {
-              if (state.reqStatus == ReqStatus.inProgress) {
+              if (state.reqStatus == ReqStatus.inProgress||state.reqStatus == ReqStatus.notLaunched) {
                 return const CustomProgressInd();
               }
 
@@ -73,10 +82,18 @@ class _ServiceCategoryState extends State<ServiceCategory> {
                     children: (listCat ?? <Datum>[])
                         .map((e) => GestureDetector(
                               onTap: () {
-                                serviceCubit.setServiceId = e.id;
-                                serviceCubit.serServName=e.serviceName;
-                                NavManager(context)
-                                    .navPush(const BookService());
+                                if(AccountState.userDetails==null){
+                                  AccountState.isGuest=false;
+                                  ShowCustom(context).showSnack("Login First");
+                                  NavManager(context).navPushAndRemoveUntil(const LoginScreen());
+                                }
+                                else{
+                                  serviceCubit.setServiceId = e.id;
+                                  serviceCubit.serServName=e.serviceName;
+                                  NavManager(context)
+                                      .navPush(const BookService());
+                                }
+
                               },
                               child: Container(
                                 height: mq.height * .11,

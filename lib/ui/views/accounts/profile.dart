@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:need/bl/blocs/accounts/account_cubit.dart';
+import 'package:need/bl/modles/delete_account_res.dart';
 import 'package:need/constans/keys.dart';
 import 'package:need/data_service/local/pref_manager.dart';
+import 'package:need/ui/views/accounts/login.dart';
 import 'package:need/ui/views/accounts/update_password.dart';
 import 'package:need/ui/views/app_navigation.dart';
 import 'package:need/ui/widgets/c_app_bar.dart';
@@ -210,6 +212,48 @@ class _ProfileState extends State<Profile> {
                               navManager.navPush(const AppNavBar());
                             }
                           },
+                  ), 
+                  MainButton(
+                    name: "Delete My Account",
+                    action:() {
+                           
+                      
+                      var confirmDelete=AlertDialog(
+                        title: Text(S.of(context).areYouSureDeleteYourAccount),
+                        
+                        actions: [
+                          TextButton(onPressed: (){
+                            if(AccountState.userDetails!=null){
+                              accountCubit.deleteAccount(AccountState.userDetails!.userId).then((value) {
+
+                                if(value is DeleteAccountRes) {
+                                  AccountState.isGuest = false;
+                                   ShowCustom(context).showSnack(
+                                      "Your account deleted");
+                                  PrefManager.removeValue(PrefManager.userDetails);
+                                  NavManager(context).navPushAndRemoveUntil(const LoginScreen());
+                                }else{
+                                  NavManager(context).popCurrent();
+                                  ShowCustom(context).showSnack("Failed Delete account");
+
+                                }
+
+                              }).catchError((e){
+                                NavManager(context).popCurrent();
+                                ShowCustom(context).showSnack("Failed Delete account:$e");
+                              });
+
+                            }
+                          }, child: Text(S.of(context).yes)),
+                          TextButton(onPressed: (){
+                            NavManager(context).popCurrent();
+
+                          }, child: Text(S.of(context).no)),
+                        ],
+                      )  ;
+
+                      showDialog(context: context, builder:(context)=>confirmDelete);
+                    },
                   ),
                   const VerticalSpace(spaceType: SpaceType.m),
                   Align(

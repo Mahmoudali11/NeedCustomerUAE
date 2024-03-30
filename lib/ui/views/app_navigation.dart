@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:need/bl/blocs/accounts/account_cubit.dart';
 import 'package:need/bl/blocs/theme/app_theme_cubit.dart';
+import 'package:need/constans/keys.dart';
 import 'package:need/data_service/local/pref_manager.dart';
 import 'package:need/ui/views/accounts/login.dart';
 import 'package:need/ui/views/accounts/profile.dart';
@@ -23,6 +26,8 @@ class AppNavBar extends StatefulWidget {
 class _AppNavBarState extends State<AppNavBar> {
   late List<Widget> items;
   late List<String> title;
+  Timer? _timer;
+
   int currentIndex = 0;
 
   @override
@@ -37,27 +42,77 @@ class _AppNavBarState extends State<AppNavBar> {
   }
 
   late AccountCubit accountCubit;
+ Future checkSession()async{
+   try{
 
+
+     var session=await PrefManager.getValue(PrefManager.sessionTime);
+    if(session==null){
+      await PrefManager.setValue(PrefManager.sessionTime,DateTime.now().toIso8601String());
+      session=await PrefManager.getValue(PrefManager.sessionTime);
+
+    }
+
+      _timer=Timer.periodic(const Duration(seconds: CKeys.checkEach), (timer) {
+        debugPrint("check Session");
+
+        var d=DateTime.now().difference(DateTime.parse(session!!));
+        if(d.inDays>=CKeys.session){
+          PrefManager.removeValue(PrefManager.sessionTime);
+          PrefManager.removeValue(PrefManager.userDetails);
+          debugPrint("Log out");
+
+          NavManager(context).navPushAndRemoveUntil(const LoginScreen());
+
+        }
+
+
+      });
+
+    }catch(e){
+     debugPrint(e.toString());
+   }
+   }
   @override
   void initState() {
     accountCubit = BlocProvider.of<AccountCubit>(context);
 
-
+    if(AccountState.isGuest){
+      currentIndex=1;
+    }
     items = const [
       HomeWidget(),
       ServiceCategory(),
       MyBooking(),
       Profile(),
     ];
+    checkSession();
     super.initState();
   }
 
-  onTapItem(int index) {
-    setState(() {
-      currentIndex = index;
-    });
-  }
 
+
+
+  onTapItem(int index) {
+    if(AccountState.isGuest){
+      if(index!=1){
+       AccountState.isGuest=false;
+        NavManager(context).navPushAndRemoveUntil(const LoginScreen());
+      }
+    }
+    else{
+      setState(() {
+        currentIndex = index;
+      });
+    }
+
+  }
+@override
+void dispose() {
+   AccountState.isGuest=false;
+_timer?.cancel();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,6 +133,7 @@ class _AppNavBarState extends State<AppNavBar> {
                 ),
           IconButton(onPressed: (){
 
+                AccountState.isGuest=false;
 
                 PrefManager.removeValue(PrefManager.userDetails);
                 NavManager(context).navPushRep(const LoginScreen());

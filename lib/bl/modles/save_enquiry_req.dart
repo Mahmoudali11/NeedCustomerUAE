@@ -7,6 +7,7 @@ String address;
 String details;
 String userId;
 String email;
+String bookingDate;
 
 SaveEnquiryReq({
   required this.name,
@@ -16,7 +17,8 @@ SaveEnquiryReq({
   required this.address,
   required this.details,
   required this.userId,
-  required this.email
+  required this.email,
+  required this.bookingDate
 });
 
 
@@ -30,5 +32,6 @@ Map<String, dynamic> toJson() => {
 "details": details,
 "userId": userId,
 "email": email,
+  "bookingDate":bookingDate
 };
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:need/bl/modles/delete_account_res.dart';
 import 'package:need/bl/modles/log_req.dart';
 import 'package:need/bl/modles/refresh_token_req.dart';
 import 'package:need/bl/modles/refresh_token_res.dart';
@@ -139,11 +140,50 @@ class AccountsRep {
       if (res.statusCode == 200) {
 
         var dJs = jsonDecode(res.body);
+
         var resetRes= RefreshTokenRes.fromJson(dJs);
+
             return resetRes;
 
       } else {
         return res;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      rethrow;
+    }
+  }
+  Future deleteAccount(String accountId) async {
+    try {
+      var token = await PrefManager.getValue(PrefManager.token);
+      Map<String, String> head = <String, String>{};
+      head.addAll(NetworkApis.requestHeader);
+      head["Authorization"] = "Bearer $token";
+         final url = Uri.parse(NetworkApis.base + NetworkApis.deleteAccount);
+
+        var body={"userId":accountId};
+
+      var res = await http.post(url, body: jsonEncode(body), headers: head);
+      if (res.statusCode == 200) {
+        var bod=DeleteAccountRes.fromJson(jsonDecode(res.body));
+        if(bod.success!=0){
+          return bod;
+
+        }
+        else if (bod.success == 0) {
+          var username = await PrefManager.getValue(PrefManager.username);
+          var password = await PrefManager.getValue(PrefManager.password);
+          if (username != null && password != null) {
+            await AccountsRep()
+                .login(LoginReq(username: username, password: password));
+          }
+        }
+        return null;
+
+
+
+      } else {
+        return null;
       }
     } catch (e) {
       debugPrint(e.toString());

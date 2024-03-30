@@ -769,6 +769,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Are you sure delete your account?`
+  String get areYouSureDeleteYourAccount {
+    return Intl.message(
+      'Are you sure delete your account?',
+      name: 'areYouSureDeleteYourAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

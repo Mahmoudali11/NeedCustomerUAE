@@ -5,6 +5,7 @@ abstract class PrefManager{
   static String token="token";
   static String username="username";
   static String password="password";
+  static String sessionTime="sessionTime";
 
 
 

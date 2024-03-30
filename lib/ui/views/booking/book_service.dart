@@ -39,6 +39,9 @@ class _BookServiceState extends State<BookService> {
   TextEditingController countryCode = TextEditingController();
   String? bookDate;
   late ServiceCubit serviceCubit;
+  DateTime selectedDate=DateTime.now();
+  TimeOfDay timeOfDay=TimeOfDay.now();
+
 
   @override
   void dispose() {
@@ -121,6 +124,8 @@ class _BookServiceState extends State<BookService> {
                       if (d != null) {
                         setState(() {
                           date.text = TextFormatting.formatDate(d);
+                          selectedDate=d;
+                          
                         });
                       }
                     },
@@ -140,6 +145,7 @@ class _BookServiceState extends State<BookService> {
                       if (t != null) {
                         setState(() {
                           time.text = t.format(context);
+                          timeOfDay=t;
                         });
                       }
                     },
@@ -195,6 +201,8 @@ class _BookServiceState extends State<BookService> {
                     action: () {
                       try{
                       if (fKey.currentState?.validate() == true) {
+                         var bookingDate=TextFormatting.createDateTime(time.text, date.text);
+                         var formattingDateTime=TextFormatting.dateToDateTime(bookingDate);
                         serviceCubit.setSaveReq = SaveEnquiryReq(
 
                             name: AccountState.userDetails?.userName ?? "",
@@ -204,7 +212,9 @@ class _BookServiceState extends State<BookService> {
                             address: location.text,
                             userId: AccountState.userDetails!.userId!,
                             details: bookNotes.text,
-                            email: AccountState.userDetails!.email!);
+                            email: AccountState.userDetails!.email!,
+                          bookingDate: formattingDateTime
+                        );
                         NavManager(context).navPush(const BookSummery());
                       } else {
                         ShowCustom(context)

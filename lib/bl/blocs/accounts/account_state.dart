@@ -8,6 +8,7 @@ class AccountState {
   LatestAcE? latestAcE;
   LoginRes? loginRes;
   String? errorMessage;
+  static bool isGuest=true;
 
   static UserDetails? get userDetails => _userDetails;
   static UserDetails? _userDetails;

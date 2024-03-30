@@ -70,5 +70,8 @@
   "facilities": "Facilities",
   "setToPaid": "Set To Paid",
   "bookNow": "Book Now",
-  "bookDetails": "Book Details"
+  "bookDetails": "Book Details",
+  "areYouSureDeleteYourAccount": "Are you sure delete your account?",
+  "yes": "Yes",
+  "no": "No"
 }

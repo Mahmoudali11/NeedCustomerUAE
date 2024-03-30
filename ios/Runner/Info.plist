@@ -40,16 +40,16 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-        <string>This app always needs location and when in use to function</string>
+        <string>For easley pick up your location in booking, this app always needs your location.</string>
         <key>NSLocationAlwaysUsageDescription</key>
-        <string>This app always needs location to function</string>
+        <string>For easley pick up your location in booking, this app always needs access your location.</string>
         <key>NSLocationWhenInUseUsageDescription</key>
-        <string>This app needs location when in use to function</string>
+        <string>For easley pick up your location in booking, allow Need app to access your location.</string>
 
          <key>NSPhotoLibraryUsageDescription</key>
-          <string>This app needs photo library when in use to function</string>
+          <string>To update profile image or eny service in this app require photo, allow access photo library</string>
            <key>NSCameraUsageDescription</key>
-            <string>This app needs camera when in use to function</string>
+            <string>To update profile image or eny service in this app require photo, allow access photo library</string>
 
             <key>NSContactsUsageDescription</key>
             <string>You need to provide contact access to link and manage contacts.</string>

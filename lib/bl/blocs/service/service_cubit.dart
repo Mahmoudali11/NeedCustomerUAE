@@ -67,6 +67,27 @@ class ServiceCubit extends Cubit<ServiceState> {
           errorMessage: e.toString()));
     }
   }
+  getServiceCategoryGuest() async {
+    try {
+      emit(state.copyFrom(
+          reqStatus: ReqStatus.inProgress,
+          latestServiceE: LatestServiceE.getServiceCat));
+      var res = await _serviceRep.getServiceCatGuest();
+
+      if (res is ServiceCategoryM) {
+        emit(state.copyFrom(
+            reqStatus: ReqStatus.success,
+            serviceCategoryM: res,
+            latestServiceE: LatestServiceE.getServiceCat));
+      }
+
+    } catch (e) {
+      emit(state.copyFrom(
+          reqStatus: ReqStatus.fail,
+          latestServiceE: LatestServiceE.getServiceCat,
+          errorMessage: e.toString()));
+    }
+  }
 
 
   saveEnquiry(SaveEnquiryReq model) async {
@@ -101,7 +122,7 @@ class ServiceCubit extends Cubit<ServiceState> {
     }
   }
 
-  getUserEnquires(String userId) async {
+  Future getUserEnquires(String userId) async {
     try {
       emit(state.copyFrom(
           reqStatus: ReqStatus.inProgress,

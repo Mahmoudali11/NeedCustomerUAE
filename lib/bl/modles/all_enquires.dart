@@ -34,6 +34,7 @@ class Data {
   String city;
   String userId;
   String requestStatus;
+  DateTime bookingDate;
 
   Data({
     required this.id,
@@ -49,7 +50,8 @@ class Data {
     required this.refno,
     required this.city,
     required this.userId,
-    required this.requestStatus
+    required this.requestStatus,
+    required this.bookingDate
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -60,13 +62,14 @@ class Data {
     cellphnumber: json["Cellphnumber"],
     email: json["Email"],
     notes: json["Notes"],
-    creationDate: DateTime.tryParse(json["CreationDate"])??DateTime.now(),
+    creationDate: DateTime.tryParse(json["CreationDate"]??DateTime.now().toIso8601String())??DateTime.now(),
     status: json["status"],
     source: json["source"],
     refno: json["refno"],
     city: json["city"],
     userId: json["userId"],
-    requestStatus:json["RequestStatus"]
+    requestStatus:json["RequestStatus"],
+      bookingDate: DateTime.tryParse(json["BookingDate"]??DateTime.now().toIso8601String())??DateTime.now()
   );
 
 

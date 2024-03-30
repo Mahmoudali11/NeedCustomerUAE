@@ -51,6 +51,26 @@ class ServiceRep {
     } catch (e) {
       rethrow;
     }
+  }Future getServiceCatGuest() async {
+    try {
+
+      final url = Uri.parse(NetworkApis.base + NetworkApis.categoryGust);
+      Map<String, String> head = <String, String>{};
+      head.addAll(NetworkApis.requestHeader);
+       var res = await http.get(url, headers:head);
+      if (res.statusCode == 200) {
+        var dJs = jsonDecode(res.body);
+        var serviceRes = ServiceCategoryM.fromJson(dJs);
+        if (serviceRes.success != 0) {
+          return serviceRes;
+        }
+        //refresh token make silent login
+      } else {
+        return null;
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 
   //book service

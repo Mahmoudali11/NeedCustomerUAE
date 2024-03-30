@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,6 +32,8 @@ class _HomeWidgetState extends State<HomeWidget> {
 
   @override
   void initState() {
+
+
     serviceCubit = BlocProvider.of<ServiceCubit>(context);
     BlocProvider.of<AccountCubit>(context).getUserDetails();
 
@@ -40,10 +44,12 @@ class _HomeWidgetState extends State<HomeWidget> {
     super.initState();
   }
 
+
+
   @override
   void dispose() {
     search.dispose();
-    super.dispose();
+     super.dispose();
   }
 
   @override
@@ -93,7 +99,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             buildWhen: (o,n)=>n.latestServiceE==LatestServiceE.getOffers,
             builder: (context, state) {
 
-              if(state.reqStatus==ReqStatus.inProgress){
+              if(state.reqStatus==ReqStatus.inProgress||state.reqStatus==ReqStatus.notLaunched){
                 return const CustomProgressInd();
               }
               else if( state.reqStatus==ReqStatus.fail){
@@ -153,7 +159,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             buildWhen: (o, n) =>
                 n.latestServiceE == LatestServiceE.getUserEnquires,
             builder: (context, state) {
-              if (state.reqStatus == ReqStatus.inProgress) {
+              if (state.reqStatus == ReqStatus.inProgress||state.reqStatus==ReqStatus.notLaunched) {
                 return const CustomProgressInd();
               } else if (state.reqStatus == ReqStatus.fail) {
                 return Center(
@@ -238,11 +244,11 @@ class BookingInfo extends StatelessWidget {
                     ),
                     NameValueText(
                       name: S.of(context).bookingData,
-                      value: TextFormatting.formatDate(DateTime.now()),
+                      value: TextFormatting.formatDate(DateTime.tryParse(req?.bookingDate??DateTime.now().toIso8601String())),
                     ),
                     NameValueText(
                       name: S.of(context).bookingTime,
-                      value: TextFormatting.formatTime(DateTime.now()),
+                      value: TextFormatting.formatTime(DateTime.tryParse(req?.bookingDate??DateTime.now().toIso8601String())),
                     ),
                     showDetails
                         ? Column(
@@ -328,11 +334,11 @@ class SavedBookInfo extends StatelessWidget {
                     ),
                     NameValueText(
                       name: S.of(context).bookingData,
-                      value: TextFormatting.formatDate(req?.creationDate),
+                      value: TextFormatting.formatDate(req?.bookingDate),
                     ),
                     NameValueText(
                       name: S.of(context).bookingTime,
-                      value: TextFormatting.formatTime(req?.creationDate),
+                      value: TextFormatting.formatTime(req?.bookingDate),
                     ),
                     showDetails
                         ? Column(
